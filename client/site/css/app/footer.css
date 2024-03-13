@@ -1,0 +1,125 @@
+footer {
+    background: #F3F6FA;
+    padding-top: 70px;
+    padding-bottom: 0;
+}
+
+footer .container {
+    display: flex;
+}
+
+footer .footer_col {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+footer .footer_about .footer_about_logo {
+    margin-bottom: 15px;
+}
+
+footer .footer_about li {
+    font-size: 16px;
+    color: #1c1c1c;
+    line-height: 36px;
+    list-style: none;
+}
+
+footer .footer_widget {
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+footer .footer_widget h6 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+footer .footer_widget ul {
+    width: 50%;
+    float: left;
+}
+
+footer .footer_widget ul li a {
+    color: #1c1c1c;
+    font-size: 14px;
+    line-height: 32px;
+}
+
+footer .footer_widget p {
+    font-size: 14px;
+    color: #1c1c1c;
+    margin-bottom: 30px;
+}
+
+footer .footer_widget form {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+footer .footer_widget form input {
+    width: 100%;
+    font-size: 16px;
+    padding-left: 20px;
+    color: #1c1c1c;
+    height: 46px;
+    border: 1px solid #ededed;
+    outline: none;
+}
+
+footer .footer_widget form button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    cursor: pointer;
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 0 26px;
+    background: var(--primary-color);
+    border: none;
+}
+
+footer .footer_widget .footer_widget_social a {
+    display: inline-block;
+    height: 41px;
+    width: 41px;
+    font-size: 16px;
+    color: #404040;
+    border: 1px solid #ededed;
+    border-radius: 50%;
+    line-height: 38px;
+    text-align: center;
+    background: #ffffff;
+    transition: all, 0.3s;
+    margin-right: 10px;
+}
+
+footer .footer_widget .footer_widget_social a:hover {
+    background: #7fad39;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+footer .footer_copyright {
+    width: 100%;
+    border-top: 1px solid #ebebeb;
+    padding: 15px 0;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+footer .footer_copyright_text {
+    font-size: 14px;
+    color: #1c1c1c;
+    float: left;
+    line-height: 25px;
+}
+
+footer .footer_copyright_payment {
+    float: right;
+}

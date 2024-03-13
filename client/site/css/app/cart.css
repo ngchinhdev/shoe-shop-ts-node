@@ -1,0 +1,226 @@
+.wrapper.hide {
+    display: none;
+}
+
+.wrapper {
+    padding-bottom: 80px;
+    padding-top: 60px;
+}
+
+section.cart table {
+    width: 100%;
+    text-align: center;
+}
+
+section.cart table tr {
+    border-bottom: 1px solid #ebebeb;
+}
+
+section.cart table tr td {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+section.cart table th.prod {
+    text-align: left;
+}
+
+section.cart table th {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1c1c1c;
+    padding-bottom: 20px;
+}
+
+section.cart table .cart_item {
+    width: 630px;
+    text-align: left;
+}
+
+section.cart table .cart_item img {
+    display: inline-block;
+    margin-right: 25px;
+    width: 100px;
+    aspect-ratio: 1/1;
+    vertical-align: middle;
+}
+
+section.cart table .cart_item h5 {
+    font-size: 18px;
+    color: #1c1c1c;
+    display: inline-block;
+    font-weight: 400;
+}
+
+section.cart table .cart_price {
+    font-size: 18px;
+    color: #1c1c1c;
+    font-weight: 700;
+    width: 100px;
+}
+
+section.cart table .cart_quantity {
+    width: 225px;
+}
+
+section.cart table .pro-qty {
+    width: 120px;
+    height: 40px;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    background: #f5f5f5;
+    margin-bottom: 5px;
+}
+
+section.cart table .pro-qty .qtybtn {
+    width: 15px;
+    font-size: 16px;
+    color: #6f6f6f;
+    cursor: pointer;
+    display: inline-block;
+}
+
+section.cart table .pro-qty input {
+    height: 100%;
+    width: 100%;
+    font-size: 16px;
+    color: #1c1c1c;
+    width: 50px;
+    border: none;
+    background: #f5f5f5;
+    text-align: center;
+}
+
+section.cart table .cart_total {
+    font-size: 18px;
+    color: #1c1c1c;
+    font-weight: 700;
+    width: 110px;
+}
+
+section.cart table .cart_item_close {
+    text-align: right;
+}
+
+section.cart table .icon_close {
+    font-size: 24px;
+    color: #b2b2b2;
+    cursor: pointer;
+}
+
+section.discount_bill .container {
+    display: flex;
+}
+
+section.discount_bill .container>div {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+section.discount_bill .shoping_discount {
+    margin-top: 45px;
+}
+
+section.discount_bill .shoping_discount h5 {
+    font-size: 20px;
+    color: #1c1c1c;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+section.discount_bill .shoping_discount input {
+    width: 255px;
+    height: 46px;
+    border: 1px solid #cccccc;
+    font-size: 16px;
+    color: #b2b2b2;
+    text-align: center;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+section.discount_bill .shoping_discount button {
+    padding: 15px 30px 11px;
+    font-size: 12px;
+    letter-spacing: 4px;
+    background: #6f6f6f;
+    color: #ffffff;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+}
+
+.empty_cart {
+    text-align: center;
+    width: 100%;
+    padding: 80px 0;
+}
+
+.empty_cart img {
+    padding-bottom: 8px;
+}
+
+.empty_cart a {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 10px 16px;
+    color: white;
+    background-color: var(--primary-color);
+    font-size: .9rem;
+    border-radius: 6px;
+}
+
+.empty_cart i {
+    padding-right: 8px;
+}
+
+section.discount_bill .shoping_checkout {
+    background: #f5f5f5;
+    padding: 30px;
+    padding-top: 20px;
+    margin-top: 50px;
+}
+
+section.discount_bill .shoping_checkout h5 {
+    color: #1c1c1c;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 28px;
+}
+
+section.discount_bill .shoping_checkout ul {
+    margin-bottom: 28px;
+}
+
+section.discount_bill .shoping_checkout ul li {
+    font-size: 16px;
+    color: #1c1c1c;
+    font-weight: 700;
+    list-style: none;
+    overflow: hidden;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 13px;
+    margin-bottom: 18px;
+}
+
+section.discount_bill .shoping_checkout ul li span {
+    font-size: 18px;
+    color: #dd2222;
+    float: right;
+}
+
+section.discount_bill .shoping_checkout a {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px 28px 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: var(--primary-color);
+    letter-spacing: 2px;
+}
