@@ -5,7 +5,7 @@ export interface IProduct {
     orgPrice?: number;
     images?: string[];
     hot?: boolean;
-    types?: { size?: string, color?: string, quantity?: number; }[];
-    quantity?: number;
-    category?: number;
+    color?: string;
+    types?: { size?: string, quantity?: number; }[];
+    categoryId?: string;
 }

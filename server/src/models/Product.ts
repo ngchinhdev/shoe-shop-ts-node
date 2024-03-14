@@ -19,23 +19,25 @@ const productSchema = new Schema({
     },
     images: [
         {
-            type:
-                String, require:
-                true
+            type: String,
+            require: true
         }
     ],
     hot: {
         type: Boolean,
         require: true
     },
+    color: {
+        type: String,
+        require: true
+    },
     types: [
         {
             size: String,
-            color: String,
             quantity: Number
         }
     ],
-    category: {
+    categoryId: {
         type: Schema.Types.ObjectId,
         ref: "Category"
     },

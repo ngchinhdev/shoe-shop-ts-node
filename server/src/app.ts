@@ -1,15 +1,27 @@
 import express, { NextFunction, Request, Response } from 'express';
 import createHttpError, { isHttpError } from 'http-errors';
 import morgan from 'morgan';
+import cors from 'cors';
 
 import productRoutes from './routes/product';
+import categoryRoutes from './routes/category';
+import userRoutes from './routes/user';
 
 const app = express();
+
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
+
+app.use(express.static('public'));
 
 app.use(express.json());
 app.use(morgan('dev'));
 
 app.use('/api/shoe/products', productRoutes);
+app.use('/api/shoe/categories', categoryRoutes);
+app.use('/api/shoe/users', userRoutes);
 
 app.use((req, res, next) => {
     next(createHttpError(404, 'Endpoint not found.'));

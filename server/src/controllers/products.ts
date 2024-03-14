@@ -41,16 +41,38 @@ export const getProduct: RequestHandler = async (req, res, next) => {
 };
 
 export const createProduct: RequestHandler<unknown, unknown, IProduct, unknown> = async (req, res, next) => {
-    const { name, description, price, orgPrice, images, hot, types, quantity, category } = req.body;
+    const { name, description, price, orgPrice, images, hot, color, types, categoryId } = req.body;
 
     try {
-        if (!name || !description || !price || !orgPrice || !images || !hot || !types || !quantity || !category) {
+        if (!name || !description || !price || !orgPrice || !images || !color || !types || !categoryId) {
             throw createHttpError(400, 'Missing required fields.');
         }
 
-        const product = await ProductModel.create({ name, description, price, orgPrice, images, hot, types, quantity, category });
+        const product = await ProductModel.create({ name, description, price, orgPrice, images, hot, color, types, categoryId });
 
         res.status(201).json(product);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const deleteProduct: RequestHandler = async (req, res, next) => {
+    const productId = req.params.id;
+
+    try {
+        if (!mongoose.isValidObjectId(productId)) {
+            throw createHttpError(400, 'Invalid product ID.');
+        }
+
+        const product = await ProductModel.findById(productId).exec();
+
+        if (!product) {
+            throw createHttpError(404, 'Product not found.');
+        }
+
+        await ProductModel.deleteOne({ _id: productId });
+
+        res.status(204);
     } catch (error) {
         next(error);
     }
