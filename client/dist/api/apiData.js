@@ -8,94 +8,97 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 export const BASE_URL = 'http://localhost:8080/api/shoe';
-export function getFullData(endpoint) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const res = yield fetch(`${BASE_URL}/${endpoint}`);
-            if (!res.ok)
-                throw new Error("Failed to fetch data.");
-            const data = yield res.json();
-            return data;
+export const getFullData = (endpoint) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield fetch(`${BASE_URL}/${endpoint}`);
+        if (!res.ok)
+            throw new Error("Failed to fetch data.");
+        const data = yield res.json();
+        return data;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
         }
-        catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            }
+    }
+});
+export const getData = (endpoint, id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield fetch(`${BASE_URL}/${endpoint}/${id}`);
+        if (!res.ok)
+            throw new Error("Failed to fetch data.");
+        const data = yield res.json();
+        return data;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
         }
-    });
-}
-export function getSingleData(endpoint, id) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const res = yield fetch(`${BASE_URL}/${endpoint}/${id}`);
-            if (!res.ok)
-                throw new Error("Failed to fetch data.");
-            const data = yield res.json();
-            return data;
+    }
+});
+export const postData = (endpoint, data) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield fetch(`${BASE_URL}/${endpoint}`, {
+            method: "POST",
+            body: data,
+        });
+        if (!res.ok)
+            throw new Error("Failed to post data.");
+        return res;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
         }
-        catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            }
+    }
+});
+export const updateDataForm = (endpoint, id, newData) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield fetch(`${BASE_URL}/${endpoint}/${id}`, {
+            method: "PUT",
+            body: newData,
+        });
+        if (!res.ok)
+            throw new Error("Failed to update data.");
+        return res;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
         }
-    });
-}
-export function postData(endpoint, data) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const res = yield fetch(`${BASE_URL}/${endpoint}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-            if (!res.ok)
-                throw new Error("Failed to post data.");
-            return res;
+    }
+});
+export const updateDataJSON = (endpoint, id, newData) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield fetch(`${BASE_URL}/${endpoint}/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newData),
+        });
+        if (!res.ok)
+            throw new Error("Failed to update data.");
+        return res;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
         }
-        catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            }
+    }
+});
+export const deleteData = (endpoint, id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield fetch(`${BASE_URL}/${endpoint}/${id}`, {
+            method: "DELETE",
+        });
+        if (!res.ok)
+            throw new Error("Failed to delete data.");
+        return res;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
         }
-    });
-}
-export function updateData(endpoint, id, newData) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const res = yield fetch(`${BASE_URL}/${endpoint}/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newData),
-            });
-            if (!res.ok)
-                throw new Error("Failed to update data.");
-            return res;
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            }
-        }
-    });
-}
-export function deleteData(endpoint, id) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const res = yield fetch(`${BASE_URL}/${endpoint}/${id}`, {
-                method: "DELETE",
-            });
-            if (!res.ok)
-                throw new Error("Failed to delete data.");
-            return res;
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            }
-        }
-    });
-}
+    }
+});

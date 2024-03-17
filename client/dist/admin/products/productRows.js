@@ -7,14 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getFullData } from "../../api/apiData.js";
 import { formatPrice } from "../../utils/formatPrice.js";
-import { loaderCircle } from "../../utils/loader.js";
-// import handlePagination, { generatePagination } from "../common/pagination.js";
-// import handleAddProduct from "./productAdd.js";
+import { loaderCircle } from "../../utils/loaders.js";
+import { getFullData } from "../../api/apiData.js";
 import handleDeleteProduct from "./productDelete.js";
-// import handleUpdateProduct from "./productUpdate.js";
-const PER_PAGE = 10;
+import handleAddProduct from "./productAdd.js";
+import handleUpdateProduct from "./productUpdate.js";
+const PER_PAGE = 40;
 function generateMarkup(productsData, startIdx, container) {
     return __awaiter(this, void 0, void 0, function* () {
         container.innerHTML = '';
@@ -48,12 +47,15 @@ function generateMarkup(productsData, startIdx, container) {
 }
 function markupRow(product, index, startIdx) {
     var _a, _b;
+    const isSelling = product.price !== product.orgPrice;
     return `<tr>
                 <td>
                     ${startIdx + index + 1}
                 </td>
                 <td>
                     ${product.name}
+                    <br />
+                    (${product.color})
                 </td>
                 <td>
                     ${(_a = product.images) === null || _a === void 0 ? void 0 : _a.map(img => `<img src="${img}" alt="${product.name}">`).join('')}
@@ -61,7 +63,7 @@ function markupRow(product, index, startIdx) {
                 <td>
                     ${product.price && formatPrice(product.price)}
                     <br />
-                    <del>${product.orgPrice && formatPrice(product.orgPrice)}</del>
+                    <del>${product.orgPrice && isSelling ? formatPrice(product.orgPrice) : ''}</del>
                 </td>
                 <td>
                     ${(_b = product.types) === null || _b === void 0 ? void 0 : _b.map(type => `<p>${type.size}/${type.quantity} đôi</p>`).join('')}
@@ -91,9 +93,11 @@ export default function initProducts(container, curPage = 0) {
         const addNewBtn = document.querySelector('.add-new span');
         const table = document.querySelector('table');
         const pagination = document.querySelector('.pagination');
-        // addNewBtn.addEventListener('click', async function () {
-        //     await handleAddProduct(container);
-        // });
+        addNewBtn.addEventListener('click', function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                yield handleAddProduct(container);
+            });
+        });
         table.addEventListener('click', function (e) {
             return __awaiter(this, void 0, void 0, function* () {
                 const btn = e.target;
@@ -101,10 +105,10 @@ export default function initProducts(container, curPage = 0) {
                     const idProd = btn.dataset.id;
                     yield handleDeleteProduct(idProd, container);
                 }
-                // if (btn.classList.contains('change-btn')) {
-                //     const idProd = btn.dataset.id;
-                //     await handleUpdateProduct(idProd, container);
-                // }
+                if (btn.classList.contains('change-btn')) {
+                    const idProd = btn.dataset.id;
+                    yield handleUpdateProduct(idProd, container);
+                }
             });
         });
         // pagination.addEventListener('click', async function (e) {

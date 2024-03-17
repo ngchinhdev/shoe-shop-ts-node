@@ -10,7 +10,6 @@
   "author": "Nguyen Chinh",
   "license": "ISC",
   "devDependencies": {
-    "lite-server": "^2.6.1",
     "nodemon": "^3.1.0"
   }
 }

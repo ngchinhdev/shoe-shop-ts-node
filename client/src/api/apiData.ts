@@ -1,6 +1,6 @@
 export const BASE_URL = 'http://localhost:8080/api/shoe';
 
-export async function getFullData(endpoint: string) {
+export const getFullData = async (endpoint: string) => {
     try {
         const res = await fetch(`${BASE_URL}/${endpoint}`);
 
@@ -14,9 +14,9 @@ export async function getFullData(endpoint: string) {
             console.error(error.message);
         }
     }
-}
+};
 
-export async function getSingleData(endpoint: string, id: string) {
+export const getData = async (endpoint: string, id: string) => {
     try {
         const res = await fetch(`${BASE_URL}/${endpoint}/${id}`);
 
@@ -30,16 +30,13 @@ export async function getSingleData(endpoint: string, id: string) {
             console.error(error.message);
         }
     }
-}
+};
 
-export async function postData(endpoint: string, data: object) {
+export const postData = async (endpoint: string, data: FormData) => {
     try {
         const res = await fetch(`${BASE_URL}/${endpoint}`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+            body: data,
         });
 
         if (!res.ok) throw new Error("Failed to post data.");
@@ -50,9 +47,26 @@ export async function postData(endpoint: string, data: object) {
             console.error(error.message);
         }
     }
-}
+};
 
-export async function updateData(endpoint: string, id: string, newData: object) {
+export const updateDataForm = async (endpoint: string, id: string, newData: FormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${endpoint}/${id}`, {
+            method: "PUT",
+            body: newData,
+        });
+
+        if (!res.ok) throw new Error("Failed to update data.");
+
+        return res;
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
+    }
+};
+
+export const updateDataJSON = async (endpoint: string, id: string, newData: object) => {
     try {
         const res = await fetch(`${BASE_URL}/${endpoint}/${id}`, {
             method: "PUT",
@@ -70,9 +84,9 @@ export async function updateData(endpoint: string, id: string, newData: object) 
             console.error(error.message);
         }
     }
-}
+};
 
-export async function deleteData(endpoint: string, id: string) {
+export const deleteData = async (endpoint: string, id: string) => {
     try {
         const res = await fetch(`${BASE_URL}/${endpoint}/${id}`, {
             method: "DELETE",
@@ -86,4 +100,4 @@ export async function deleteData(endpoint: string, id: string) {
             console.error(error.message);
         }
     }
-}
+};

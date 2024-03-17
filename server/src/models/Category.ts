@@ -8,6 +8,10 @@ const categorySchema = new Schema({
     image: {
         type: String,
         require: true
+    },
+    isDelete: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 

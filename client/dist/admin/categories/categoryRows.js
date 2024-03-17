@@ -8,12 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { getFullData } from "../../api/apiData.js";
-import { loaderCircle } from "../../utils/loader.js";
-// import handlePagination, { generatePagination } from "../common/pagination.js";
-// import handleAddCategory from "./CategoryAdd.js";
-// import handleUpdateCategory from "./CategoryUpdate.js";
-// import handleDeleteCategory from "./categoryDelete.js";
-const PER_PAGE = 10;
+import { loaderCircle } from "../../utils/loaders.js";
+import handleAddCategory from "./categoryAdd.js";
+import handleDeleteCategory from "./categoryDelete.js";
+import handleUpdateCategory from "./categoryUpdate.js";
+const PER_PAGE = 40;
 function generateMarkup(categoriesData, startIdx, container) {
     return __awaiter(this, void 0, void 0, function* () {
         container.innerHTML = '';
@@ -68,23 +67,27 @@ export default function initCategories(container, curPage = 0) {
         const endIdx = startIdx + PER_PAGE;
         yield generateMarkup(categoriesData.slice(startIdx, endIdx), startIdx, container);
         // generatePagination(totalPages, curPage, container);
-        // const addNewBtn = document.querySelector('.add-new span');
-        // const table = document.querySelector('table');
-        // const pagination = document.querySelector('.pagination');
-        // addNewBtn.addEventListener('click', async function () {
-        //     await handleAddCategory(container);
-        // });
-        // table.addEventListener('click', async function (e) {
-        //     const btn = e.target;
-        //     if (btn.classList.contains('del-btn')) {
-        //         const idCate = btn.dataset.id;
-        //         await handleDeleteCategory(idCate, container);
-        //     }
-        //     if (btn.classList.contains('change-btn')) {
-        //         const idCate = btn.dataset.id;
-        //         await handleUpdateCategory(idCate, container);
-        //     }
-        // });
+        const addNewBtn = document.querySelector('.add-new span');
+        const table = document.querySelector('table');
+        const pagination = document.querySelector('.pagination');
+        addNewBtn.addEventListener('click', function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                yield handleAddCategory(container);
+            });
+        });
+        table.addEventListener('click', function (e) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const btn = e.target;
+                if (btn.classList.contains('del-btn')) {
+                    const idCate = btn.dataset.id;
+                    yield handleDeleteCategory(idCate, container);
+                }
+                if (btn.classList.contains('change-btn')) {
+                    const idCate = btn.dataset.id;
+                    yield handleUpdateCategory(idCate, container);
+                }
+            });
+        });
         // pagination.addEventListener('click', async function (e) {
         //     const btn = e.target;
         //     if (!btn.hasAttribute('data-page')) return;

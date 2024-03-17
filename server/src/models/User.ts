@@ -15,6 +15,9 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
+    phone: {
+        type: String,
+    },
     password: {
         type: String,
         required: true
@@ -27,6 +30,10 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
+    isDelete: {
+        type: Boolean,
+        default: false
+    }
 }, { timestamps: true });
 
 type TUser = InferSchemaType<typeof userSchema>;

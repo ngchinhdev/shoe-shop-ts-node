@@ -297,6 +297,17 @@ img.avt-img {
     margin: 2px;
 }
 
+.img-preview {
+    margin-top: 20px;
+}
+
+.img-preview img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    border: 1px solid #969696;
+}
+
 main table .last-td {
     display: flex;
     justify-content: center;
@@ -318,7 +329,7 @@ main table .last-td span {
     border-radius: 4px;
 }
 
-main table td .change-btn,
+main table td .change-btn:not(.change-role),
 main table td .detail-btn {
     background-color: blue;
 }
@@ -451,6 +462,10 @@ option {
     font-size: 1rem;
     border-radius: 6px;
     cursor: pointer;
+}
+
+.change-role {
+    width: 60% !important;
 }
 
 .add_cate {

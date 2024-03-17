@@ -1,10 +1,9 @@
-import initCategories from "./categories/categoryRows.js";
-import initProducts from "./products/productRows.js";
+import { type TPage } from "../types/pagesAdmin.js";
+import CategorySkeleton from "./CategorySkeleton.js";
+import ProductSkeleton from "./ProductSkeleton.js";
+import UserSkeleton from "./UserSkeleton.js";
 
 const sideBar = document.querySelector('.sidebar_menu')!;
-const mainContainer = document.querySelector('main') as HTMLDivElement;
-
-type TPage = 'category' | 'product' | 'user' | 'blog' | 'role' | 'dashboard' | 'order';
 
 // Side bar handler
 sideBar.addEventListener('click', function (e: Event) {
@@ -23,15 +22,15 @@ sideBar.addEventListener('click', function (e: Event) {
 // Main view handler
 async function handleRenderContent(page: string) {
     if (page === 'category') {
-        initCategories(mainContainer);
+        new CategorySkeleton().initialize('categories');
     }
 
     if (page === 'product') {
-        initProducts(mainContainer);
+        new ProductSkeleton().initialize('products');
     }
 
     if (page === 'user') {
-        console.log('user');
+        new UserSkeleton().initialize('users');
     }
 
     if (page === 'blog') {

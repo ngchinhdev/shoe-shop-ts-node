@@ -4,8 +4,14 @@ export interface IProduct {
     price?: number;
     orgPrice?: number;
     images?: string[];
+    oldImages?: string;
     hot?: boolean;
     color?: string;
-    types?: { size?: string, quantity?: number; }[];
+    types?: string;
     categoryId?: string;
+    isDelete: boolean;
+}
+
+export interface IProductParams {
+    id?: string;
 }
