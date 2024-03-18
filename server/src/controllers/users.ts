@@ -1,8 +1,9 @@
 import { RequestHandler } from "express";
+import mongoose from "mongoose";
 
 import UserModel from "../models/User";
 import createHttpError from "http-errors";
-import mongoose from "mongoose";
+import { IUser } from "../types/users";
 
 export const getUsers: RequestHandler = async (req, res, next) => {
     try {
@@ -18,7 +19,7 @@ export const getUsers: RequestHandler = async (req, res, next) => {
     }
 };
 
-export const getUser: RequestHandler = async (req, res, next) => {
+export const getUserById: RequestHandler = async (req, res, next) => {
     const userId = req.params.id;
 
     try {
@@ -33,6 +34,38 @@ export const getUser: RequestHandler = async (req, res, next) => {
         }
 
         res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getUserByEmail: RequestHandler = async (req, res, next) => {
+    const userEmail = req.params.email;
+
+    try {
+        const user = await UserModel.find({ email: userEmail }).exec();
+
+        if (!user) {
+            throw createHttpError(404, 'User not found.');
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const createUser: RequestHandler<unknown, unknown, IUser, unknown> = async (req, res, next) => {
+    const { fullName, email, phone, address, password } = req.body;
+    console.log(req.body);
+    console.log(fullName);
+    try {
+        if (!fullName || !email || !password) {
+            throw createHttpError(400, 'Missing required fields.');
+        }
+        const user = await UserModel.create({ fullName, email, phone, address, password });
+
+        res.status(201).json(user);
     } catch (error) {
         next(error);
     }

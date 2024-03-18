@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./images/mango-fav.webp">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/login.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.1/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css">
+
+    <title>Organic - Thực phẩm tươi dinh dưỡng</title>
+
+    <script src="../../dist/site/login.js" defer type="module"></script>
+</head>
+<body>
+    <header>
+        <div class="header_top">
+            <div class="container ic">
+                <div class="left_site ic">
+                    <div class="email dash_col">
+                        <i class="fa fa-envelope"></i>
+                        ogani@gmail.com
+                    </div>
+                    <div class="promote">
+                        Miễn phí ship cho các sản phẩm trên 100.000đ
+                    </div>
+                </div>
+                <div class="right-site ic">
+                    <div class="socials ic dash_col">
+                        <a href=""><i class="fa fa-facebook"></i></a>
+                        <a href=""><i class="fa fa-twitter"></i></a>
+                        <a href=""><i class="fa fa-linkedin"></i></a>
+                        <a href=""><i class="fa fa-pinterest"></i></a>
+                    </div>
+                    <div class="login ic">
+                        <a href="login.html"><i class="fa fa-user"></i>Login</a>
+                    </div>
+                    <div class="logout">
+                        <span><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header_main">
+            <div class="container ic">
+                <a href="index.html" class="logo">
+                    <img src="./images/logo.png" alt="Logo">
+                </a>
+                <ul class="nav ic">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="shop.html">Cửa hàng</a></li>
+                    <li><a href="product.html?cate=1">Sản phẩm</a></li>
+                    <li><a href="blog.html">Bài viết</a></li>
+                    <!-- <li><a href="">Liên hệ</a></li> -->
+                </ul>
+                <ul class="cart_site ic">
+                    <li>
+                        <i class="ri-heart-fill"></i>
+                        <span>3</span>
+                        <div class="likes-box">
+
+                        </div>
+                    </li>
+                    <li>
+                        <a href="cart.html">
+                            <i class="ri-shopping-bag-fill"></i>
+                            <span>3</span>
+                        </a>
+                    </li>
+                    <li>Tổng: <b>22.000d</b></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="categories">
+                <div class="toggle">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <span>Danh Mục</span>
+                    <i class="ri-arrow-down-s-line"></i>
+                </div>
+                <ul class="list_cate">
+                    <li><a href="">hi</a></li>
+                    <li><a href="">hi</a></li>
+                    <li><a href="">hi</a></li>
+                    <li><a href="">hi</a></li>
+                    <li><a href="">hi</a></li>
+                </ul>
+            </div>
+            <div class="">
+                <div class="search_phone">
+                    <div class="search">
+                        <input type="text" placeholder="Bạn cần tìm gì?">
+                        <button>Tìm kiếm</button>
+                    </div>
+                    <div class="phone ic">
+                        <div>
+                            <i class="ri-phone-fill"></i>
+                        </div>
+                        <div class="info">
+                            <h4>+65 11.188.888</h4>
+                            <span>Hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="navigation_bar">
+        <div class="container">
+            <ul>
+                <li>
+                    <a href="index.html">Trang chủ</a>
+                    <span> <i class="fa fa-angle-right"></i> </span>
+                </li>
+                <li>
+                    <a href="register.html">Đăng ký</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container_login" class="container">
+        <div class="register">
+            <div class="text-center">
+                <h1 class="title">Đăng ký tài khoản</h1>
+                <span class="or">Bạn đã có tài khoản? Đăng nhập <a href="login.html">tại đây</a></span>
+            </div>
+            <form action="" method="post" class="form-register">
+                <div class="ho-ten">
+                    <div class="form-group">
+                        <label for="ho">Họ <span class="star">*</span></label>
+                        <input type="text" id="ho" name="ho" placeholder="Họ">
+                        <small class="error pt-1"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="ten">Tên <span class="star">*</span></label>
+                        <input type="text" id="ten" name="ten" placeholder="Tên">
+                        <small class="error pt-1"></small>
+                    </div>
+                </div>
+                <div class="sdt-email">
+                    <div class="form-group">
+                        <label for="email">Email <span class="star">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="Email">
+                        <small class="error pt-1"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="so-dien-thoai">Số điện thoại:</label>
+                        <input type="tel" id="so-dien-thoai" name="phone" placeholder="Số điện thoại">
+                        <small class="error pt-1"></small>
+                    </div>
+                </div>
+                <div class="pass">
+                    <div class="form-group">
+                        <label for="mat-khau">Mật khẩu <span class="star">*</span></label>
+                        <input type="password" id="mat-khau" name="password" placeholder="Mật khẩu">
+                        <small class="error pt-1"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="nhap-lai-mat-khau">Nhập lại mật khẩu <span class="star">*</span></label>
+                        <input type="password" id="nhap-lai-mat-khau" name="repass" placeholder="Nhập lại mật khẩu">
+                        <small class="error pt-1"></small>
+                    </div>
+                </div>
+                <div class="address">
+                    <div class="form-group">
+                        <label for="dia-chi">Địa chỉ:</label>
+                        <input type="text" id="dia-chi" name="address" placeholder="Địa chỉ">
+                    </div>
+                </div>
+                <div class="button-register">
+                    <button type="submit" name="submit">Đăng ký</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="container">
+            <div class="footer_col">
+                <div class="footer_about">
+                    <div class="footer_about_logo">
+                        <a href="./index.html"><img src="./images/logo.png" alt="Logo"></a>
+                    </div>
+                    <ul>
+                        <li>Địa chỉ: 60-49 Go Vap, HCM</li>
+                        <li>SDT: +65 11.222.333</li>
+                        <li>Email: ogani@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_col">
+                <div class="footer_widget">
+                    <h6>Đường dẫn</h6>
+                    <ul>
+                        <li><a href="#">Về chúng tôi</a></li>
+                        <li><a href="#">Bảo mật mua hàng</a></li>
+                        <li><a href="#">Thông tin giao hàng</a></li>
+                        <li><a href="#">Thông tin liên hệ</a></li>
+                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">Dịch vụ</a></li>
+                        <li><a href="#">Sản phẩm</a></li>
+                        <li><a href="#">Đơn vị hợp tác</a></li>
+                        <li><a href="#">Sự đổi mới</a></li>
+                        <li><a href="#">Chứng nhận</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_col">
+                <div class="footer_widget">
+                    <h6>Tham gia bản tin</h6>
+                    <p>Nhận email sớm nhất về các thông tin.</p>
+                    <form action="#">
+                        <input type="text" placeholder="Enter your mail">
+                        <button type="submit" class="site-btn">Đăng ký</button>
+                    </form>
+                    <div class="footer_widget_social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="footer_copyright">
+                <div class="footer_copyright_text">
+                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright © by Colorlib |
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                        template is cloned with <i class="fa fa-heart" aria-hidden="true"></i> by <a href=""
+                            target="_blank">NguyenChinh</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+                <div class="footer_copyright_payment"><img src="./images/payment-item.png" alt=""></div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

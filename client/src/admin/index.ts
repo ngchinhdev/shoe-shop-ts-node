@@ -1,12 +1,13 @@
 import { type TPage } from "../types/pagesAdmin.js";
 import CategorySkeleton from "./CategorySkeleton.js";
+import DashboardSkeleton from "./DashboardSkeleton.js";
 import ProductSkeleton from "./ProductSkeleton.js";
 import UserSkeleton from "./UserSkeleton.js";
 
 const sideBar = document.querySelector('.sidebar_menu')!;
 
 // Side bar handler
-sideBar.addEventListener('click', function (e: Event) {
+sideBar.addEventListener('click', async function (e: Event) {
     e.preventDefault();
 
     const btn = e.target as HTMLElement;
@@ -21,6 +22,10 @@ sideBar.addEventListener('click', function (e: Event) {
 
 // Main view handler
 async function handleRenderContent(page: string) {
+    if (page === 'dashboard') {
+        new DashboardSkeleton().initialize();
+    }
+
     if (page === 'category') {
         new CategorySkeleton().initialize('categories');
     }
@@ -37,11 +42,11 @@ async function handleRenderContent(page: string) {
         console.log('blog');
     }
 
-    if (page === 'dashboard') {
-        console.log('dashboard');
-    }
-
     if (page === 'order') {
         console.log('order');
     }
 }
+
+(async () => {
+    await new DashboardSkeleton().initialize();
+})();

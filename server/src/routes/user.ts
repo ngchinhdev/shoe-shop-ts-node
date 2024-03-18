@@ -1,16 +1,20 @@
 import { Router } from "express";
 
 import * as userControllers from "../controllers/users";
+import uploadFiles from "../utils/uploadFiles";
 
 const router = Router();
 
 router.get('/', userControllers.getUsers);
 
-router.get('/:id', userControllers.getUser);
+router.get('/:id', userControllers.getUserById);
+
+router.get('/email/:email', userControllers.getUserByEmail);
 
 router.put('/:id', userControllers.updateUser);
 
-router.delete('/:id', userControllers.deleteUser);
+router.post('/', uploadFiles.any(), userControllers.createUser);
 
+router.delete('/:id', userControllers.deleteUser);
 
 export default router;

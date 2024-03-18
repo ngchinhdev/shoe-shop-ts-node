@@ -10,9 +10,9 @@ router.get('/', productController.getProducts);
 
 router.get('/:id', productController.getProduct);
 
-router.post('/', uploadFiles.array('images'), productController.createProduct);
+router.post('/', uploadFiles.array('images', 4), productController.createProduct);
 
-router.put('/:id', uploadFiles.array('images'), productController.updateProduct);
+router.put('/:id', uploadFiles.array('images', 4), productController.updateProduct);
 
 router.delete('/:id', productController.deleteProduct);
 

@@ -8,23 +8,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import CategorySkeleton from "./CategorySkeleton.js";
+import DashboardSkeleton from "./DashboardSkeleton.js";
 import ProductSkeleton from "./ProductSkeleton.js";
 import UserSkeleton from "./UserSkeleton.js";
 const sideBar = document.querySelector('.sidebar_menu');
 // Side bar handler
 sideBar.addEventListener('click', function (e) {
-    e.preventDefault();
-    const btn = e.target;
-    if (!btn.hasAttribute('data-page'))
-        return;
-    sideBar.querySelector('.active').classList.remove('active');
-    btn.closest('li').classList.add('active');
-    const page = btn.dataset.page;
-    handleRenderContent(page);
+    return __awaiter(this, void 0, void 0, function* () {
+        e.preventDefault();
+        const btn = e.target;
+        if (!btn.hasAttribute('data-page'))
+            return;
+        sideBar.querySelector('.active').classList.remove('active');
+        btn.closest('li').classList.add('active');
+        const page = btn.dataset.page;
+        handleRenderContent(page);
+    });
 });
 // Main view handler
 function handleRenderContent(page) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (page === 'dashboard') {
+            new DashboardSkeleton().initialize();
+        }
         if (page === 'category') {
             new CategorySkeleton().initialize('categories');
         }
@@ -37,11 +43,11 @@ function handleRenderContent(page) {
         if (page === 'blog') {
             console.log('blog');
         }
-        if (page === 'dashboard') {
-            console.log('dashboard');
-        }
         if (page === 'order') {
             console.log('order');
         }
     });
 }
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    yield new DashboardSkeleton().initialize();
+}))();

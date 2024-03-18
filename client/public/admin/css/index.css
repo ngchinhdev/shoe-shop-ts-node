@@ -121,6 +121,7 @@ aside {
 aside .logo a {
     display: block;
     text-align: center;
+    padding-bottom: 20px;
 }
 
 aside .logo img {
@@ -550,6 +551,7 @@ textarea {
 
 #dashboard {
     margin-top: 30px;
+    padding-bottom: 4rem;
 }
 
 #dashboard h1 {
@@ -671,20 +673,6 @@ textarea {
     text-align: center;
 }
 
-#dashboard .content.chart-box {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-top: .5rem;
-}
-
-canvas#chart-exam {
-    width: 200px !important;
-    height: 200px !important;
-    display: block !important;
-    box-sizing: border-box !important;
-}
-
 #dashboard .two-col .col table {
     width: 100%;
     margin-top: 4px;
@@ -719,6 +707,24 @@ canvas#chart-exam {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.chart-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chartBar {
+    width: 65%;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+}
+
+.chartPie {
+    width: 30%;
+    font-size: 1.2rem;
+    margin-top: 2rem;
 }
 
 .loader-wrap {

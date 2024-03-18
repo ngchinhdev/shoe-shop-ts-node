@@ -1,14 +1,9 @@
 import { InferSchemaType, Schema, model } from "mongoose";
-import { IUser } from "../types/users";
 
 const userSchema = new Schema({
     fullName: {
         type: String,
         required: true
-    },
-    avatar: {
-        type: String,
-        default: ''
     },
     email: {
         type: String,

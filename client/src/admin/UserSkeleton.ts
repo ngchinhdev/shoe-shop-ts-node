@@ -46,13 +46,13 @@ export default class UserSkeleton extends CRUD {
                         ${user.fullName}
                     </td>
                     <td>
-                        ${user.phone}
+                        ${user.phone || 'Chưa cập nhật'}
                     </td>
                     <td>
                         ${user.email}
                     </td>
                     <td>
-                        ${user.address}
+                        ${user.address || 'Chưa cập nhật'}
                     </td>
                     <td>
                         <select name="role" id="role" class="change-role change-btn" data-id="${user._id}">

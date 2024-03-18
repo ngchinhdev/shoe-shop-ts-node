@@ -41,6 +41,11 @@ export default class ProductSkeleton extends CRUD {
                 return;
             }
 
+            if (images.length > 4) {
+                alert('Số lượng hình ảnh tối đa là 4!');
+                return;
+            }
+
             const isAdd = confirm('Xác nhận thêm sản phẩm?');
             if (!isAdd) return;
 
@@ -70,9 +75,15 @@ export default class ProductSkeleton extends CRUD {
             const types = form.get('types') as string;
             const color = form.get('color');
             const categoryId = form.get('categoryId');
+            const images = form.getAll('images') as File[];
 
             if (!name || !description || !price || !orgPrice || !hot || !color || !types || !categoryId) {
                 alert('Vui lòng nhập đầy đủ các trường!');
+                return;
+            }
+
+            if (images.length > 4) {
+                alert('Số lượng hình ảnh tối đa là 4!');
                 return;
             }
 
