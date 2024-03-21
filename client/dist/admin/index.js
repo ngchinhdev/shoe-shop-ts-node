@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import BlogSkeleton from "./BlogSkeleton.js";
 import CategorySkeleton from "./CategorySkeleton.js";
 import DashboardSkeleton from "./DashboardSkeleton.js";
 import ProductSkeleton from "./ProductSkeleton.js";
@@ -41,7 +42,7 @@ function handleRenderContent(page) {
             new UserSkeleton().initialize('users');
         }
         if (page === 'blog') {
-            console.log('blog');
+            new BlogSkeleton().initialize('blogs');
         }
         if (page === 'order') {
             console.log('order');

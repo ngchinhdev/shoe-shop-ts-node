@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 export const BASE_URL = 'http://localhost:8080/api/shoe';
-export const getFullData = (endpoint) => __awaiter(void 0, void 0, void 0, function* () {
+export const getFullData = (endpoint, query) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const res = yield fetch(`${BASE_URL}/${endpoint}`);
+        const res = yield fetch(`${BASE_URL}/${endpoint}/${query || ''}`);
         if (!res.ok)
             throw new Error("Failed to fetch data.");
         const data = yield res.json();

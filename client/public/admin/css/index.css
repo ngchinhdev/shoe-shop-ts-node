@@ -371,6 +371,7 @@ main table td img.ctn {
 }
 
 .ctn-blog p {
+    padding: 0 10px;
     width: 500px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -378,6 +379,10 @@ main table td img.ctn {
     -webkit-line-clamp: 4;
     line-clamp: 4;
     -webkit-box-orient: vertical;
+}
+
+.tt-blog {
+    padding: 0 20px;
 }
 
 main .sub_main.ib {

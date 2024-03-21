@@ -2,19 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="./images/mango-fav.webp">
+    <link rel="icon" type="image/x-icon" href="./images/favi.webp">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/app/header.css">
-    <link rel="stylesheet" href="css/app/footer.css">
-    <link rel="stylesheet" href="css/app/cart.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> -->
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.1/remixicon.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css">
 
-    <title>Organic - Thực phẩm tươi dinh dưỡng</title>
+    <title>Sneaker - Giày thể thao số một Việt Nam</title>
 
-    <script defer type="module" src="js/app/common.js"></script>
-    <script defer type="module" src="js/app/cart.js"></script>
+    <script defer type="module" src="../../dist/site/share.js"></script>
     <!-- <script defer type="module" src="js/index.js"></script> -->
 </head>
 <body>
@@ -126,7 +124,7 @@
     </div>
 
     <div class="wrapper">
-        <!-- <section class="cart">
+        <section class="cart">
             <div class="container side_pad">
                 <table>
                     <thead>
@@ -139,7 +137,81 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        <tr>
+                            <td class="cart_item">
+                                <img src="http://localhost:8080/images/products/running1.jpg" alt="">
+                                <h5>Adidas Superstar Running White</h5>
+                            </td>
+                            <td class="cart_price" data-price="${dataItem.price}">
+                                895.000 ₫
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <span data-dec=${item.id} class="dec qtybtn">-</span>
+                                        <input type="number" value="1" data-ip=${item.id}>
+                                        <span class="inc qtybtn" data-inc=${item.id}>+</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="cart_total">
+                                895.000 ₫
+                            </td>
+                            <td class="cart_item_close">
+                                <span class="icon_close"><i data-id=${item.id} class="fa fa-times"
+                                        aria-hidden="true"></i></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cart_item">
+                                <img src="http://localhost:8080/images/products/verse1.jpg" alt="">
+                                <h5>Converse Chuck 70 Low Top White (1970s)</h5>
+                            </td>
+                            <td class="cart_price" data-price="${dataItem.price}">
+                                298.000 ₫
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <span data-dec=${item.id} class="dec qtybtn">-</span>
+                                        <input type="number" value="1" data-ip=${item.id}>
+                                        <span class="inc qtybtn" data-inc=${item.id}>+</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="cart_total">
+                                298.000 ₫
+                            </td>
+                            <td class="cart_item_close">
+                                <span class="icon_close"><i data-id=${item.id} class="fa fa-times"
+                                        aria-hidden="true"></i></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cart_item">
+                                <img src="http://localhost:8080/images/products/ivory1.jpg" alt="">
+                                <h5>Air Force 1 Shadow Pale Ivory"</h5>
+                            </td>
+                            <td class="cart_price" data-price="${dataItem.price}">
+                                785.000 ₫
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <span data-dec=${item.id} class="dec qtybtn">-</span>
+                                        <input type="number" value="1" data-ip=${item.id}>
+                                        <span class="inc qtybtn" data-inc=${item.id}>+</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="cart_total">
+                                785.000 ₫
+                            </td>
+                            <td class="cart_item_close">
+                                <span class="icon_close"><i data-id=${item.id} class="fa fa-times"
+                                        aria-hidden="true"></i></span>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -163,7 +235,7 @@
                     <a href="checkout.html" class="primary-btn">Thanh toán</a>
                 </div>
             </div>
-        </section> -->
+        </section>
     </div>
 
     <footer>

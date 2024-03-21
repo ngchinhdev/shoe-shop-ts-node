@@ -1,4 +1,5 @@
 import { type TPage } from "../types/pagesAdmin.js";
+import BlogSkeleton from "./BlogSkeleton.js";
 import CategorySkeleton from "./CategorySkeleton.js";
 import DashboardSkeleton from "./DashboardSkeleton.js";
 import ProductSkeleton from "./ProductSkeleton.js";
@@ -39,7 +40,7 @@ async function handleRenderContent(page: string) {
     }
 
     if (page === 'blog') {
-        console.log('blog');
+        new BlogSkeleton().initialize('blogs');
     }
 
     if (page === 'order') {

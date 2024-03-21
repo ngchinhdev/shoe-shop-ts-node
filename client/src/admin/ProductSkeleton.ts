@@ -1,5 +1,5 @@
 import CRUD from "../utils/CRUD.js";
-import { formatPrice } from "../utils/formatPrice.js";
+import { formatPrice } from "../utils/helpers.js";
 
 import { deleteData, getData, getFullData, postData, updateDataForm } from "../api/apiData.js";
 

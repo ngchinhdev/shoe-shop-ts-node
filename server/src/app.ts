@@ -6,6 +6,7 @@ import cors from 'cors';
 import productRoutes from './routes/product';
 import categoryRoutes from './routes/category';
 import userRoutes from './routes/user';
+import blogRoutes from './routes/blog';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(morgan('dev'));
 app.use('/api/shoe/products', productRoutes);
 app.use('/api/shoe/categories', categoryRoutes);
 app.use('/api/shoe/users', userRoutes);
+app.use('/api/shoe/blogs', blogRoutes);
 
 app.use((req, res, next) => {
     next(createHttpError(404, 'Endpoint not found.'));

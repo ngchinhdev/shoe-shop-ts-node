@@ -1,8 +1,8 @@
 export const BASE_URL = 'http://localhost:8080/api/shoe';
 
-export const getFullData = async (endpoint: string) => {
+export const getFullData = async (endpoint: string, query?: string) => {
     try {
-        const res = await fetch(`${BASE_URL}/${endpoint}`);
+        const res = await fetch(`${BASE_URL}/${endpoint}/${query || ''}`);
 
         if (!res.ok) throw new Error("Failed to fetch data.");
 

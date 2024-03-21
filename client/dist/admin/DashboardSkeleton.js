@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import Chart from '../../node_modules/chart.js/auto/auto.mjs';
-import { formatPrice } from "../utils/formatPrice.js";
+import { formatPrice } from "../utils/helpers.js";
 import { loaderCircle } from "../utils/loaders.js";
 import { getFullData } from '../api/apiData.js';
 const randomColorBar = () => {
@@ -48,9 +48,11 @@ export default class DashboardSkeleton {
             const products = yield getFullData('products');
             const users = yield getFullData('users');
             const categories = yield getFullData('categories');
+            const blogs = yield getFullData('blogs');
             this.countProducts = products.length;
             this.countUser = users.length;
             this.categoriesData = categories;
+            this.countBlogs = blogs.length;
             this.chartBarData = countOccurrences(categories, products);
         });
     }
@@ -148,7 +150,7 @@ export default class DashboardSkeleton {
                                         <i class="fa fa-paper-plane" aria-hidden="true"></i>
                                     </div>
                                     <div class="number">
-                                        0
+                                        ${this.countBlogs}
                                     </div>
                                     <h3 class="title">
                                         Bài viết

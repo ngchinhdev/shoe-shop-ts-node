@@ -2,7 +2,7 @@ import Chart from '../../node_modules/chart.js/auto/auto.mjs';
 import { type IProduct } from '../types/products.js';
 import { type ICategory } from '../types/categories.js';
 
-import { formatPrice } from "../utils/formatPrice.js";
+import { formatPrice } from "../utils/helpers.js";
 import { loaderCircle } from "../utils/loaders.js";
 import { getFullData } from '../api/apiData.js';
 
@@ -60,10 +60,12 @@ export default class DashboardSkeleton {
         const products = await getFullData('products');
         const users = await getFullData('users');
         const categories = await getFullData('categories');
+        const blogs = await getFullData('blogs');
 
         this.countProducts = products.length;
         this.countUser = users.length;
         this.categoriesData = categories;
+        this.countBlogs = blogs.length;
 
         this.chartBarData = countOccurrences(categories, products);
     }
@@ -165,7 +167,7 @@ export default class DashboardSkeleton {
                                         <i class="fa fa-paper-plane" aria-hidden="true"></i>
                                     </div>
                                     <div class="number">
-                                        0
+                                        ${this.countBlogs}
                                     </div>
                                     <h3 class="title">
                                         Bài viết

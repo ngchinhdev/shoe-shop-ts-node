@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import CRUD from "../utils/CRUD.js";
-import { formatPrice } from "../utils/formatPrice.js";
+import { formatPrice } from "../utils/helpers.js";
 import { deleteData, getData, getFullData, postData, updateDataForm } from "../api/apiData.js";
 export default class ProductSkeleton extends CRUD {
     constructor() {
