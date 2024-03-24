@@ -5,5 +5,5 @@ export interface IUser {
     password?: string;
     address?: string;
     isAdmin?: boolean;
-    isDelete: boolean;
+    isDeleted: boolean;
 }

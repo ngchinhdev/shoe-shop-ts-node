@@ -9,7 +9,7 @@ export interface IProduct {
     color?: string;
     types?: string;
     categoryId?: string;
-    isDelete: boolean;
+    isDeleted: boolean;
 }
 
 export interface IProductParams {

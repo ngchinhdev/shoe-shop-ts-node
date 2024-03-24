@@ -25,7 +25,7 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    isDelete: {
+    isDeleted: {
         type: Boolean,
         default: false
     }

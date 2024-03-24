@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import BlogSkeleton from "./BlogSkeleton.js";
 import CategorySkeleton from "./CategorySkeleton.js";
 import DashboardSkeleton from "./DashboardSkeleton.js";
+import OrderSkeleton from "./OrderSkeleton.js";
 import ProductSkeleton from "./ProductSkeleton.js";
 import UserSkeleton from "./UserSkeleton.js";
 const sideBar = document.querySelector('.sidebar_menu');
@@ -45,7 +46,7 @@ function handleRenderContent(page) {
             new BlogSkeleton().initialize('blogs');
         }
         if (page === 'order') {
-            console.log('order');
+            new OrderSkeleton().generateMainMarkup();
         }
     });
 }

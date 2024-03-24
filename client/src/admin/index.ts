@@ -2,6 +2,7 @@ import { type TPage } from "../types/pagesAdmin.js";
 import BlogSkeleton from "./BlogSkeleton.js";
 import CategorySkeleton from "./CategorySkeleton.js";
 import DashboardSkeleton from "./DashboardSkeleton.js";
+import OrderSkeleton from "./OrderSkeleton.js";
 import ProductSkeleton from "./ProductSkeleton.js";
 import UserSkeleton from "./UserSkeleton.js";
 
@@ -44,7 +45,7 @@ async function handleRenderContent(page: string) {
     }
 
     if (page === 'order') {
-        console.log('order');
+        new OrderSkeleton().generateMainMarkup();
     }
 }
 

@@ -2,7 +2,7 @@ export interface ICategory {
     name?: string;
     image?: string;
     oldImage?: string;
-    isDelete: boolean;
+    isDeleted: boolean;
 }
 
 export interface ICategoryParams {

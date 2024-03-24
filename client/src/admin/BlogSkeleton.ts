@@ -23,26 +23,31 @@ export default class BlogSkeleton extends CRUD {
 
             const form = new FormData(this.formAddAndEdit);
 
-            const name = form.get('name');
-            const image = form.get('image') as File;
+            const title = form.get('title');
+            const content = form.get('content');
+            const category = form.get('category');
+            const thumbnail = form.get('thumbnail') as File;
 
-            if (!name || !image.name) {
+            console.log(title, content, category, thumbnail.name);
+
+            if (!title || !content || !category || !thumbnail.name) {
                 alert('Vui lòng nhập đầy đủ các trường!');
                 return;
             }
 
-            const isAdd = confirm('Xác nhận thêm danh mục?');
+            const isAdd = confirm('Xác nhận thêm bài viết?');
 
             if (!isAdd) return;
 
-            await postData('categories', form);
-            await this.initialize('categories');
+            await postData('blogs', form);
+            await this.initialize('blogs');
         });
     }
 
     async handleUpdate(id: string) {
         await this.loader();
-        const dataOld = await getData('categories', id);
+        const dataOld = await getData('blogs', id);
+
         this.generateUpdateMarkup(dataOld);
 
         this.formAddAndEdit = document.querySelector('form') as HTMLFormElement;
@@ -52,19 +57,21 @@ export default class BlogSkeleton extends CRUD {
 
             const form = new FormData(this.formAddAndEdit);
 
-            const name = form.get('name');
+            const title = form.get('title');
+            const content = form.get('content');
+            const category = form.get('category');
 
-            if (!name) {
+            if (!title || !content || !category) {
                 alert('Vui lòng nhập đầy đủ các trường!');
                 return;
             }
 
-            const isAdd = confirm('Xác nhận cập nhật danh mục?');
+            const isUpdate = confirm('Xác nhận cập nhật bài viết?');
 
-            if (!isAdd) return;
+            if (!isUpdate) return;
 
-            await updateDataForm('categories', id, form);
-            await this.initialize('categories');
+            await updateDataForm('blogs', id, form);
+            await this.initialize('blogs');
         });
     }
 
@@ -73,8 +80,8 @@ export default class BlogSkeleton extends CRUD {
 
         if (!isDelete) return;
 
-        await deleteData('categories', id);
-        await this.initialize('categories');
+        await deleteData('blogs', id);
+        await this.initialize('blogs');
     }
 
     async generateMainMarkup(blogsData: IBlog[]) {
@@ -127,24 +134,32 @@ export default class BlogSkeleton extends CRUD {
     }
 
     async generateAddMarkup() {
-        const markup = `<form class="sub_main ib" action="" method="post">
+        const markup = `<form class="sub_main" action="" method="post">
                             <div class="nav">
                                 <div class="above_table">
                                     <div class="ctg_name">
-                                        <strong>Thêm danh mục</strong>
+                                        <strong>Thêm bài viết</strong>
                                     </div>
                                 </div>
                                 <div class="add-new">
                                 </div>
                             </div>
-                            <div class="add_cate add_common">
+                            <div class="add_prod add_common">
                                 <div class="field">
-                                    <label for="name">Tên danh mục</label>
-                                    <input type="text" id="name" class="cm" name="name">
+                                    <label for="title">Tiêu đề</label>
+                                    <input type="text" id="title" name="title" class="w-100 cm">
                                 </div>
                                 <div class="field">
-                                    <label for="image">Hình ảnh</label>
-                                    <input type="file" id="image" name="image">
+                                    <label for="price">Nội dung</label>
+                                    <textarea name="content" id="contents" rows="10"></textarea>
+                                </div>
+                                <div class="field">
+                                    <label for="category">Danh mục</label>
+                                    <input name="category" id="category" class="w-100 cm">
+                                </div>
+                                <div class="field">
+                                    <label for="thumbnail">Hình ảnh</label>
+                                    <input type="file" id="thumbnail" name="thumbnail">
                                 </div>
                             </div>
                             <div>
@@ -156,34 +171,39 @@ export default class BlogSkeleton extends CRUD {
     }
 
     async generateUpdateMarkup(dataOld: IBlog) {
-        const markup = `<form class="sub_main" action="" method="patch">
+        const markup = `<form class="sub_main" action="" method="post">
                             <div class="nav">
                                 <div class="above_table">
                                     <div class="ctg_name">
-                                        <strong>Cập nhật danh mục</strong>
+                                        <strong>Chỉnh sửa bài viết</strong>
                                     </div>
                                 </div>
                                 <div class="add-new">
                                 </div>
                             </div>
-                            <div class="add_cate add_common">
-                                <input type="hidden" name="oldImage" value='${dataOld.thumbnail}'>
+                            <div class="add_prod add_common">
+                                <input type="hidden" name="oldThumbnail" value="${dataOld.thumbnail}">
                                 <div class="field">
-                                    <label for="name">Tên danh mục</label>
-                                    <input type="text" id="name" class="cm" name="name" value="${dataOld.title}">
+                                    <label for="title">Tiêu đề</label>
+                                    <input type="text" id="title" value="${dataOld.title}" name="title" class="w-100 cm">
                                 </div>
-                                <div class="field" style="display: flex; align-items: center">
-                                    <label for="image">Hình ảnh</label>
-                                    <input type="file" id="image" name="image">
-                                    <div class="img-preview">
-                                        <img src="${dataOld.thumbnail}" alt="${dataOld.title}">
-                                    </div>
+                                <div class="field">
+                                    <label for="price">Nội dung</label>
+                                    <textarea name="content" id="contents" rows="10">${dataOld.content}</textarea>
                                 </div>
-                            </div>
-                            <div>
-                                <button class="btn-add">Cập nhật</button>
-                            </div>
-                        </form>`;
+                                <div class="field">
+                                    <label for="category">Danh mục</label>
+                                    <input name="category" id="category" class="w-100 cm" value="${dataOld.category}">
+                                </div >
+                                <div class="field">
+                                    <label for="thumbnail">Hình ảnh</label>
+                                    <input type="file" id="thumbnail" name="thumbnail">
+                                </div>
+                            </div >
+                                <div>
+                                    <button class="btn-add">Cập nhật</button>
+                                </div>
+                        </form > `;
 
         this.clearAndInsertToContainer(markup);
     }

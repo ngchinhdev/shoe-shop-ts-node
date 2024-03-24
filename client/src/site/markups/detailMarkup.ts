@@ -1,9 +1,9 @@
 import { type IProduct } from "../../types/products.js";
 import { formatPrice } from "../../utils/helpers.js";
+import { loaderDot } from "../../utils/loaders.js";
 
-const informationContainer = document.querySelector('.detail_row') as HTMLDivElement;
-
-export async function generateInfoProduct(product: IProduct) {
+export async function generateInfoProduct(container: HTMLDivElement, product: IProduct) {
+    await loaderDot(container, 500);
 
     const { _id, name, price, orgPrice, images, description } = product;
 
@@ -36,7 +36,7 @@ export async function generateInfoProduct(product: IProduct) {
                                         <div class="quantity">
                                             <div class="pro_qty">
                                                 <span class="dec qtybtn">-</span>
-                                                <input type="number" class="ip-qtt" value="1">
+                                                <input type="number" class="ip-qtt" min="1" value="1">
                                                 <span class="inc qtybtn">+</span>
                                             </div>
                                         </div>
@@ -50,6 +50,6 @@ export async function generateInfoProduct(product: IProduct) {
                                     </a>
                                 </div>`;
 
-    informationContainer.innerHTML = '';
-    informationContainer.insertAdjacentHTML('beforeend', informationMarkup);
+    container.innerHTML = '';
+    container.insertAdjacentHTML('beforeend', informationMarkup);
 };;

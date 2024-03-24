@@ -121,7 +121,6 @@ function checkCfPassword(pwInput, cfpwInput) {
 }
 const confirmLogin = (enteredEmail, enteredPassword) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield getData('users/email', enteredEmail.trim());
-    console.log(user);
     if (!user) {
         checkEmail(email, true);
         return false;

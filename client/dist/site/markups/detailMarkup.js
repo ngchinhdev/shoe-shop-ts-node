@@ -8,9 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { formatPrice } from "../../utils/helpers.js";
-const informationContainer = document.querySelector('.detail_row');
-export function generateInfoProduct(product) {
+import { loaderDot } from "../../utils/loaders.js";
+export function generateInfoProduct(container, product) {
     return __awaiter(this, void 0, void 0, function* () {
+        yield loaderDot(container, 500);
         const { _id, name, price, orgPrice, images, description } = product;
         if (!_id || !name || !price || !orgPrice || !images || !description)
             return;
@@ -40,7 +41,7 @@ export function generateInfoProduct(product) {
                                         <div class="quantity">
                                             <div class="pro_qty">
                                                 <span class="dec qtybtn">-</span>
-                                                <input type="number" class="ip-qtt" value="1">
+                                                <input type="number" class="ip-qtt" min="1" value="1">
                                                 <span class="inc qtybtn">+</span>
                                             </div>
                                         </div>
@@ -53,8 +54,8 @@ export function generateInfoProduct(product) {
                                         </span>
                                     </a>
                                 </div>`;
-        informationContainer.innerHTML = '';
-        informationContainer.insertAdjacentHTML('beforeend', informationMarkup);
+        container.innerHTML = '';
+        container.insertAdjacentHTML('beforeend', informationMarkup);
     });
 }
 ;

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { getData, getFullData } from "../api/apiData.js";
 import { generateInfoProduct } from "./markups/detailMarkup.js";
 import { generateProducts } from "./markups/productMarkup.js";
+const informationContainer = document.querySelector('.detail_row');
 const relatedProductContainer = document.querySelector('.list_prod');
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
@@ -18,7 +19,7 @@ const relatedProductContainer = document.querySelector('.list_prod');
         const relatedProducts = yield getFullData('products');
         const product = yield getData('products', idProd);
         // Generate details product
-        yield generateInfoProduct(product);
+        yield generateInfoProduct(informationContainer, product);
         yield generateProducts(relatedProductContainer, relatedProducts.slice(0, 4));
     });
 })();

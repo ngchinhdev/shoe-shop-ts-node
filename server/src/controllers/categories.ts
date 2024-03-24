@@ -6,7 +6,7 @@ import { IProductParams } from "../types/products";
 
 export const getCategories: RequestHandler = async (req, res, next) => {
     try {
-        const categories = await CategoryModel.find({ isDelete: false }).exec();
+        const categories = await CategoryModel.find({ isDeleted: false }).exec();
 
         if (categories.length === 0) {
             res.status(200).json({ message: 'No categories found.' });
@@ -102,7 +102,7 @@ export const deleteCategory: RequestHandler = async (req, res, next) => {
             res.status(404).json({ message: 'Category not found.' });
         }
 
-        await CategoryModel.updateOne({ _id: categoryId }, { isDelete: true }).exec();
+        await CategoryModel.updateOne({ _id: categoryId }, { isDeleted: true }).exec();
 
         res.sendStatus(204);
     } catch (error) {

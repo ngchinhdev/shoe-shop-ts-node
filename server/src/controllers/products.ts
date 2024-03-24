@@ -8,7 +8,7 @@ import ProductModel from "../models/Product";
 
 export const getProducts: RequestHandler = async (req, res, next) => {
     try {
-        const products = await ProductModel.find({ isDelete: false }).exec();
+        const products = await ProductModel.find({ isDeleted: false }).exec();
         if (products.length === 0) {
             throw createHttpError(404, 'No products found.');
         }
@@ -118,7 +118,7 @@ export const deleteProduct: RequestHandler = async (req, res, next) => {
             throw createHttpError(404, 'Product not found.');
         }
 
-        await ProductModel.updateOne({ _id: productId }, { isDelete: true }).exec();
+        await ProductModel.updateOne({ _id: productId }, { isDeleted: true }).exec();
 
         res.sendStatus(204);
     } catch (error) {

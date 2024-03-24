@@ -100,17 +100,19 @@ export default class DashboardSkeleton {
             type: 'pie',
             data: {
                 labels: [
-                    'Red',
-                    'Blue',
-                    'Yellow'
+                    'Adidas',
+                    'MLB',
+                    'Nike',
+                    'Converse'
                 ],
                 datasets: [{
                         label: 'My First Dataset',
-                        data: [300, 50, 100],
+                        data: [270, 50, 100, 150],
                         backgroundColor: [
                             'rgb(255, 99, 132)',
                             'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)'
                         ],
                     }]
             },

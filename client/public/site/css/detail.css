@@ -21,8 +21,8 @@ section.detail .detail_col {
 section.detail .small_pics {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: .4rem;
+    /* justify-content: space-between; */
+    gap: 12px;
 }
 
 section.detail .main_pic img {

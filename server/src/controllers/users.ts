@@ -7,7 +7,7 @@ import { IUser } from "../types/users";
 
 export const getUsers: RequestHandler = async (req, res, next) => {
     try {
-        const users = await UserModel.find({ isDelete: false }).exec();
+        const users = await UserModel.find({ isDeleted: false }).exec();
 
         if (users.length === 0) {
             throw createHttpError(404, 'No users found.');
@@ -57,8 +57,7 @@ export const getUserByEmail: RequestHandler = async (req, res, next) => {
 
 export const createUser: RequestHandler<unknown, unknown, IUser, unknown> = async (req, res, next) => {
     const { fullName, email, phone, address, password } = req.body;
-    console.log(req.body);
-    console.log(fullName);
+
     try {
         if (!fullName || !email || !password) {
             throw createHttpError(400, 'Missing required fields.');
@@ -100,7 +99,7 @@ export const deleteUser: RequestHandler = async (req, res, next) => {
             throw createHttpError(400, 'Invalid user ID.');
         }
 
-        const user = await UserModel.findByIdAndUpdate(userId, { isDelete: true }).exec();
+        const user = await UserModel.findByIdAndUpdate(userId, { isDeleted: true }).exec();
 
         if (!user) {
             throw createHttpError(404, 'User not found.');

@@ -114,7 +114,7 @@ function checkCfPassword(pwInput: HTMLInputElement, cfpwInput: HTMLInputElement)
 
 const confirmLogin = async (enteredEmail: string, enteredPassword: string) => {
     const user = await getData('users/email', enteredEmail.trim());
-    console.log(user);
+
     if (!user) {
         checkEmail(email, true);
         return false;

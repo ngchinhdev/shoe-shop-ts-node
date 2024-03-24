@@ -41,7 +41,7 @@ const productSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Category"
     },
-    isDelete: {
+    isDeleted: {
         type: Boolean,
         default: false
     }

@@ -2,6 +2,7 @@ import { getData, getFullData } from "../api/apiData.js";
 import { generateInfoProduct } from "./markups/detailMarkup.js";
 import { generateProducts } from "./markups/productMarkup.js";
 
+const informationContainer = document.querySelector('.detail_row') as HTMLDivElement;
 const relatedProductContainer = document.querySelector('.list_prod') as HTMLDivElement;
 
 (async function () {
@@ -12,7 +13,7 @@ const relatedProductContainer = document.querySelector('.list_prod') as HTMLDivE
     const product = await getData('products', idProd);
 
     // Generate details product
-    await generateInfoProduct(product);
+    await generateInfoProduct(informationContainer, product);
     await generateProducts(relatedProductContainer, relatedProducts.slice(0, 4));
 })()
 
