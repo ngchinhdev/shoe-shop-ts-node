@@ -83,7 +83,7 @@ section.random_cate .item h5 {
 
 section.random_cate .item h5 a {
     font-size: 18px;
-    color: #1c1c1c;
+    color: var(--text-color-op);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -106,7 +106,7 @@ section.hot_product h2,
 section.blog h2 {
     text-align: center;
     font-size: 2.2rem;
-    color: #1c1c1c;
+    color: var(--text-color-op);
     font-weight: 700;
     position: relative;
     margin-bottom: 3rem;
@@ -132,7 +132,7 @@ section.hot_product ul.list_cate {
 
 section.hot_product ul.list_cate li {
     font-size: 18px;
-    color: #1c1c1c;
+    color: var(--text-color-op);
     display: inline-block;
     margin-right: 25px;
     position: relative;

@@ -5,10 +5,74 @@ import mongoose from "mongoose";
 import { type IProductParams, type IProduct } from "../types/products";
 
 import ProductModel from "../models/Product";
+import CategoryModel from "../models/Category";
 
 export const getProducts: RequestHandler = async (req, res, next) => {
+    const { page, limit } = req.query;
+    const sortQuery = req.query.sort || '';
+
     try {
-        const products = await ProductModel.find({ isDeleted: false }).exec();
+        let sortOption: any = {};
+        let pageNumber: number;
+        let limitNumber: number;
+
+        if (sortQuery && typeof sortQuery === 'string') {
+            if (sortQuery.startsWith('-')) {
+                sortOption[sortQuery.substring(1)] = -1;
+            } else {
+                sortOption[sortQuery] = 1;
+            }
+        }
+
+        if (page && limit) {
+            pageNumber = +page;
+            limitNumber = +limit;
+        } else if (!page && limit) {
+            pageNumber = 1;
+            limitNumber = +limit;
+        } else if (page && !limit) {
+            pageNumber = +page;
+            limitNumber = 10;
+        } else {
+            pageNumber = 1;
+            limitNumber = 10;
+        }
+
+        const skip = (pageNumber - 1) * limitNumber;
+
+        const products = await ProductModel.find({ isDeleted: false }).skip(skip).limit(limitNumber).sort(sortOption).exec();
+        if (products.length === 0) {
+            throw createHttpError(404, 'No products found.');
+        }
+
+        return res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getProductById: RequestHandler = async (req, res, next) => {
+    const productId = req.params.id;
+
+    try {
+        const product = await ProductModel.findById(productId, { isDeleted: false }).exec();
+
+        if (!product) {
+            throw createHttpError(404, 'Product not found.');
+        }
+
+        res.status(200).json(product);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getProductBySearchName: RequestHandler = async (req, res, next) => {
+    const name = req.params.name;
+
+    try {
+        const products = await ProductModel.find({ name: { $regex: name, $options: 'i' }, isDeleted: false }).exec();
+
         if (products.length === 0) {
             throw createHttpError(404, 'No products found.');
         }
@@ -19,21 +83,39 @@ export const getProducts: RequestHandler = async (req, res, next) => {
     }
 };
 
-export const getProduct: RequestHandler = async (req, res, next) => {
-    const productId = req.params.id;
+export const getProductsByCategoryId: RequestHandler = async (req, res, next) => {
+    const categoryId = req.params.id;
 
     try {
-        if (!mongoose.isValidObjectId(productId)) {
-            throw createHttpError(400, 'Invalid product ID.');
+        const products = await ProductModel.find({ categoryId, isDeleted: false }).exec();
+
+        if (products.length === 0) {
+            throw createHttpError(404, 'No products found.');
         }
 
-        const product = await ProductModel.findById(req.params.id).exec();
+        res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+};
 
-        if (!product) {
-            throw createHttpError(404, 'Product not found.');
+export const getProductsByCategoryName: RequestHandler = async (req, res, next) => {
+    const categoryName = req.params.name;
+
+    try {
+        const category = await CategoryModel.findOne({ name: { $regex: categoryName, $options: 'i' } }).exec();
+
+        if (!category) {
+            throw createHttpError(404, 'Category not found.');
         }
 
-        res.status(200).json(product);
+        const products = await ProductModel.find({ categoryId: category._id, isDeleted: false }).exec();
+
+        if (products.length === 0) {
+            throw createHttpError(404, 'No products found.');
+        }
+
+        res.status(200).json(products);
     } catch (error) {
         next(error);
     }

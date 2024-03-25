@@ -3,6 +3,7 @@
 /* Variables */
 :root {
     --primary-color: #eb3e32;
+    --text-color-op: rgba(0, 0, 0, 0.8);
 }
 
 /* Reset css */
@@ -273,7 +274,7 @@ section.hero .categories .list_cate {
 
 section.hero .categories .list_cate li a {
     font-size: 16px;
-    color: #1c1c1c;
+    color: var(--text-color-op);
     line-height: 39px;
     display: block;
 }
@@ -332,7 +333,7 @@ section.hero .search button {
 }
 
 section.hero .phone h4 {
-    color: #1c1c1c;
+    color: var(--text-color-op);
 }
 
 section.hero .phone .info span {
@@ -394,11 +395,10 @@ div.navigation_bar ul li i {
     height: 100%;
     width: 100%;
     padding: 0;
-    /* box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px; */
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
     border-radius: 6px;
     transition: .4s;
     position: relative;
-    border: 1px solid black;
     padding-bottom: 60px;
     overflow: hidden;
 }
@@ -438,7 +438,7 @@ div.navigation_bar ul li i {
 
 .product-style .item_pic_hover li a {
     font-size: 16px;
-    color: #1c1c1c;
+    color: var(--text-color-op);
     height: 40px;
     width: 40px;
     line-height: 40px;
