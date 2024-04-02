@@ -5,9 +5,9 @@ import { loaderDot } from "../../utils/loaders.js";
 export async function generateInfoProduct(container: HTMLDivElement, product: IProduct) {
     await loaderDot(container, 500);
 
-    const { _id, name, price, orgPrice, images, description } = product;
+    const { _id, name, price, orgPrice, images, description, types } = product;
 
-    if (!_id || !name || !price || !orgPrice || !images || !description) return;
+    if (!_id || !name || !price || !orgPrice || !images || !description || !types?.length) return;
 
     const navigationBar = document.querySelector('.navigation_bar ul') as HTMLUListElement;
     navigationBar.insertAdjacentHTML('beforeend', `<li>
@@ -30,6 +30,12 @@ export async function generateInfoProduct(container: HTMLDivElement, product: IP
                                     <div class="product_details_price">
                                         <del>${formatPrice(orgPrice)}</del>
                                         <span>${formatPrice(price)}</span>
+                                    </div>
+                                    <div class="sizes">
+                                        <span>Sizes:</span>
+                                        <ul>
+                                            ${types.map(type => `<li class="${type.quantity ? '' : 'disabled'}">${type.size}</li>`).join('')}
+                                        </ul>
                                     </div>
                                     <p>${description}</p>
                                     <div class="product_details_quantity">

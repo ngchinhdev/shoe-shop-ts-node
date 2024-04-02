@@ -44,7 +44,8 @@ export const postData = (endpoint, data) => __awaiter(void 0, void 0, void 0, fu
         });
         if (!res.ok)
             throw new Error("Failed to post data.");
-        return res;
+        const dataRes = yield res.json();
+        return dataRes;
     }
     catch (error) {
         if (error instanceof Error) {

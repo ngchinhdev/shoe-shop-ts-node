@@ -10,9 +10,8 @@ const router = Router();
 router.get('/', productController.getProducts);
 
 router.get(
-    '/:id',
-    helperMiddlewares.checkValidID,
-    productController.getProductById
+    '/hot',
+    productController.getHotProducts
 );
 
 router.get(
@@ -29,6 +28,12 @@ router.get(
 router.get(
     '/search/:name',
     productController.getProductBySearchName
+);
+
+router.get(
+    '/:id',
+    helperMiddlewares.checkValidID,
+    productController.getProductById
 );
 
 router.post('/', uploadFiles.array('images', 4), productController.createProduct);

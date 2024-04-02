@@ -39,7 +39,7 @@ function handleFilterProducts(products) {
 }
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
-        const products = yield getFullData('products');
+        const products = yield getFullData('products/hot');
         const categories = yield getFullData('categories');
         const blogs = yield getFullData('blogs');
         yield generateHighlightCategories(highlightCategoryContainer, categories.slice(0, 4));

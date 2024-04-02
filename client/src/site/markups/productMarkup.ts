@@ -10,7 +10,7 @@ export async function generateProducts(container: HTMLDivElement, filteredProduc
     let markup = '';
 
     const promiseProducts = filteredProducts.map(async product => {
-        const { _id, name, price, orgPrice, description, images, categoryId } = product;
+        const { _id, name, price, orgPrice, description, images, categoryId, hot } = product;
 
         if (!name || !price || !orgPrice || !description || !images?.length || !categoryId) return;
 
@@ -24,6 +24,7 @@ export async function generateProducts(container: HTMLDivElement, filteredProduc
         return `<div class="item_col product-style">
                     <div class="item">
                         ${discount > 0 ? `<span class="sale_ribbon">${`-${discount}%`}</span>` : ''}
+                        ${hot ? `<span class="hot_ribbon">HOT</span>` : ''}
                         <div class="item_pic">
                             <img src="${images[0]}" alt="${name}">
                             <ul class="item_pic_hover">

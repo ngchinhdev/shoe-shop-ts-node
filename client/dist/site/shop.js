@@ -12,7 +12,28 @@ import { generateProducts } from "./markups/productMarkup.js";
 const shopProductContainer = document.querySelector('.list_prod');
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
-        const products = yield getFullData('products');
-        yield generateProducts(shopProductContainer, products.slice(0, 6));
+        const searchParams = new URLSearchParams(window.location.search);
+        const categoryQuery = searchParams.get('cate');
+        const searchQuery = searchParams.get('query');
+        try {
+            let products = [];
+            if (categoryQuery) {
+                products = yield getFullData(`products/categoryId/${categoryQuery}`);
+            }
+            if (searchQuery) {
+                products = yield getFullData(`products/search/${searchQuery}`);
+            }
+            if (!products) {
+                shopProductContainer.innerHTML = '<p class="not-found">Không có sản phẩm nào!</p>';
+                return;
+            }
+            if (!categoryQuery && !searchQuery) {
+                products = yield getFullData('products');
+            }
+            yield generateProducts(shopProductContainer, products.slice(0, 6));
+        }
+        catch (error) {
+            console.error(error);
+        }
     });
 })();

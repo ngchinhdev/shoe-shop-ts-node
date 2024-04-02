@@ -12,14 +12,29 @@ import { generateInfoProduct } from "./markups/detailMarkup.js";
 import { generateProducts } from "./markups/productMarkup.js";
 const informationContainer = document.querySelector('.detail_row');
 const relatedProductContainer = document.querySelector('.list_prod');
+const handleControl = () => {
+    const mainImage = document.querySelector('.main_pic img');
+    const smallImages = Array.from(document.querySelectorAll('.pic_col img'));
+    smallImages.forEach(img => img.addEventListener('click', function () {
+        mainImage.src = img.src;
+    }));
+};
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
-        const params = new URLSearchParams(window.location.search);
-        const idProd = params.get('id');
-        const relatedProducts = yield getFullData('products');
-        const product = yield getData('products', idProd);
-        // Generate details product
-        yield generateInfoProduct(informationContainer, product);
-        yield generateProducts(relatedProductContainer, relatedProducts.slice(0, 4));
+        try {
+            const queryParams = new URLSearchParams(window.location.search);
+            const idProd = queryParams.get('id');
+            const cate = queryParams.get('cate');
+            const relatedProducts = yield getFullData(`products/categoryId/${cate}`);
+            const product = yield getData('products', idProd);
+            // Generate details product
+            yield generateInfoProduct(informationContainer, product);
+            handleControl();
+            yield generateProducts(relatedProductContainer, relatedProducts.slice(0, 4));
+        }
+        catch (error) {
+            relatedProductContainer.innerHTML = '<p class="not-found">Không có sản phẩm nào!</p>';
+            console.log(error);
+        }
     });
 })();

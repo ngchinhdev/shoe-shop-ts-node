@@ -6,6 +6,7 @@ import { type IProductParams, type IProduct } from "../types/products";
 
 import ProductModel from "../models/Product";
 import CategoryModel from "../models/Category";
+import exp from "constants";
 
 export const getProducts: RequestHandler = async (req, res, next) => {
     const { page, limit } = req.query;
@@ -71,7 +72,7 @@ export const getProductBySearchName: RequestHandler = async (req, res, next) => 
     const name = req.params.name;
 
     try {
-        const products = await ProductModel.find({ name: { $regex: name, $options: 'i' }, isDeleted: false }).exec();
+        const products = await ProductModel.find({ name: { $regex: `.*${name}*.`, $options: 'i' }, isDeleted: false }).exec();
 
         if (products.length === 0) {
             throw createHttpError(404, 'No products found.');
@@ -116,6 +117,20 @@ export const getProductsByCategoryName: RequestHandler = async (req, res, next) 
         }
 
         res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getHotProducts: RequestHandler = async (req, res, next) => {
+    try {
+        const products = await ProductModel.find({ hot: true, isDeleted: false }).exec();
+
+        if (products.length === 0) {
+            throw createHttpError(404, 'No hot products found.');
+        }
+
+        return res.status(200).json(products);
     } catch (error) {
         next(error);
     }
@@ -178,7 +193,7 @@ export const updateProduct: RequestHandler<IProductParams, unknown, IProduct, un
             images = imagesMulter.map(img => `${baseUrl}/images/products/${img.originalname}`);
         }
 
-        const updatedProduct = await ProductModel.findByIdAndUpdate(productId, { name, description, price, orgPrice, images, hot, color, types: typesFormatted, categoryId }, { new: true });
+        const updatedProduct = await ProductModel.findByIdAndUpdate(productId, { name, description, price, orgPrice, images, hot, color, types: typesFormatted, categoryId });
 
         res.status(200).json(updatedProduct);
     } catch (error) {

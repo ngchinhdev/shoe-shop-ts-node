@@ -13,8 +13,6 @@ router.get('/email/:email', userControllers.getUserByEmail);
 
 router.put('/:id', userControllers.updateUser);
 
-router.post('/', uploadFiles.any(), userControllers.createUser);
-
 router.delete('/:id', userControllers.deleteUser);
 
 export default router;

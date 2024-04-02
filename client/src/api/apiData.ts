@@ -41,7 +41,8 @@ export const postData = async (endpoint: string, data: FormData) => {
 
         if (!res.ok) throw new Error("Failed to post data.");
 
-        return res;
+        const dataRes = await res.json();
+        return dataRes;
     } catch (error) {
         if (error instanceof Error) {
             console.error(error.message);

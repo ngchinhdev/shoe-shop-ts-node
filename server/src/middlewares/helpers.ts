@@ -1,4 +1,4 @@
-import e, { RequestHandler } from "express";
+import { RequestHandler } from "express";
 import mongoose from "mongoose";
 
 export const checkValidID: RequestHandler = (req, res, next) => {

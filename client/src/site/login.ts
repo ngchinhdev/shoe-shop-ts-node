@@ -1,4 +1,5 @@
-import { getData, postData } from "../api/apiData.js";
+import { postData } from "../api/apiData.js";
+import Cookies from '../../node_modules/js-cookie/dist/js.cookie.mjs';
 
 const familyName = document.querySelector("input[name=ho]") as HTMLInputElement;
 const firstName = document.querySelector("input[name=ten]") as HTMLInputElement;
@@ -112,27 +113,6 @@ function checkCfPassword(pwInput: HTMLInputElement, cfpwInput: HTMLInputElement)
     return isTrue;
 }
 
-const confirmLogin = async (enteredEmail: string, enteredPassword: string) => {
-    const user = await getData('users/email', enteredEmail.trim());
-
-    if (!user) {
-        checkEmail(email, true);
-        return false;
-    }
-
-    if (user[0].password !== enteredPassword) {
-        checkPassword(password, true);
-        return false;
-    }
-
-    if (user[0].isAdmin) {
-        window.location.href = '../../public/admin/admin.html';
-    }
-
-    alert('Đăng nhập thành công.');
-    return true;
-};
-
 formLogin && formLogin.addEventListener('submit', async function (e: SubmitEvent) {
     e.preventDefault();
 
@@ -140,7 +120,14 @@ formLogin && formLogin.addEventListener('submit', async function (e: SubmitEvent
         checkEmail(email);
         checkPassword(password);
     } else {
-        await confirmLogin(email.value, password.value);
+        const dataUser = await postData('auth/login', new FormData(formLogin));
+
+        Cookies.set(
+            'accessToken',
+            dataUser.accessToken,
+            { expires: new Date().setTime(new Date().getTime() + 15 * 60 * 1000) }
+        );
+
     }
 });
 
@@ -170,7 +157,7 @@ formRegister && formRegister.addEventListener('submit', async function (e) {
         formPost.append('address', addressValue);
         formPost.append('password', passwordValue);
 
-        await postData('users', formPost);
+        await postData('auth/register', formPost);
 
         alert('Đăng ký tài khoản thành công.');
     }

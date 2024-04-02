@@ -15,7 +15,7 @@ export function generateProducts(container, filteredProducts) {
         yield loaderDot(container, 500);
         let markup = '';
         const promiseProducts = filteredProducts.map((product) => __awaiter(this, void 0, void 0, function* () {
-            const { _id, name, price, orgPrice, description, images, categoryId } = product;
+            const { _id, name, price, orgPrice, description, images, categoryId, hot } = product;
             if (!name || !price || !orgPrice || !description || !(images === null || images === void 0 ? void 0 : images.length) || !categoryId)
                 return;
             let discount = 0;
@@ -26,6 +26,7 @@ export function generateProducts(container, filteredProducts) {
             return `<div class="item_col product-style">
                     <div class="item">
                         ${discount > 0 ? `<span class="sale_ribbon">${`-${discount}%`}</span>` : ''}
+                        ${hot ? `<span class="hot_ribbon">HOT</span>` : ''}
                         <div class="item_pic">
                             <img src="${images[0]}" alt="${name}">
                             <ul class="item_pic_hover">

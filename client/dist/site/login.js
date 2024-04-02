@@ -7,7 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getData, postData } from "../api/apiData.js";
+import { postData } from "../api/apiData.js";
+import Cookies from '../../node_modules/js-cookie/dist/js.cookie.mjs';
 const familyName = document.querySelector("input[name=ho]");
 const firstName = document.querySelector("input[name=ten]");
 const email = document.querySelector("input[name=email]");
@@ -119,22 +120,6 @@ function checkCfPassword(pwInput, cfpwInput) {
     }
     return isTrue;
 }
-const confirmLogin = (enteredEmail, enteredPassword) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield getData('users/email', enteredEmail.trim());
-    if (!user) {
-        checkEmail(email, true);
-        return false;
-    }
-    if (user[0].password !== enteredPassword) {
-        checkPassword(password, true);
-        return false;
-    }
-    if (user[0].isAdmin) {
-        window.location.href = '../../public/admin/admin.html';
-    }
-    alert('Đăng nhập thành công.');
-    return true;
-});
 formLogin && formLogin.addEventListener('submit', function (e) {
     return __awaiter(this, void 0, void 0, function* () {
         e.preventDefault();
@@ -143,7 +128,8 @@ formLogin && formLogin.addEventListener('submit', function (e) {
             checkPassword(password);
         }
         else {
-            yield confirmLogin(email.value, password.value);
+            const dataUser = yield postData('auth/login', new FormData(formLogin));
+            Cookies.set('accessToken', dataUser.accessToken, { expires: new Date().setTime(new Date().getTime() + 15 * 60 * 1000) });
         }
     });
 });
@@ -171,7 +157,7 @@ formRegister && formRegister.addEventListener('submit', function (e) {
             formPost.append('email', emailValue);
             formPost.append('address', addressValue);
             formPost.append('password', passwordValue);
-            yield postData('users', formPost);
+            yield postData('auth/register', formPost);
             alert('Đăng ký tài khoản thành công.');
         }
     });

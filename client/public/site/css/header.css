@@ -32,6 +32,13 @@ a {
     padding-right: 15px;
 }
 
+.not-found {
+    text-align: center;
+    padding: 5rem 0;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -68,20 +75,30 @@ input::-webkit-inner-spin-button {
     font-size: 1.2rem;
 }
 
-.item .sale_ribbon {
-    background-color: black;
-    color: white;
-    border-radius: 50%;
-    display: inline-block;
-    width: 45px;
+.item .sale_ribbon,
+.item .hot_ribbon {
+    padding: 5px 10px;
+    min-width: 50px;
+    color: #fff;
     text-align: center;
-    line-height: 45px;
-    font-size: .9rem;
-    aspect-ratio: 1/1;
+    text-transform: uppercase;
+    word-break: break-all;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.2;
     position: absolute;
-    right: 15px;
     top: 15px;
     z-index: 2;
+}
+
+.item .sale_ribbon {
+    background: #000;
+    right: 0;
+}
+
+.item .hot_ribbon {
+    background: #eb3e32;
+    left: 0;
 }
 
 .logged {

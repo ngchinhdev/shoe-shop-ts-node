@@ -12,8 +12,8 @@ import { loaderDot } from "../../utils/loaders.js";
 export function generateInfoProduct(container, product) {
     return __awaiter(this, void 0, void 0, function* () {
         yield loaderDot(container, 500);
-        const { _id, name, price, orgPrice, images, description } = product;
-        if (!_id || !name || !price || !orgPrice || !images || !description)
+        const { _id, name, price, orgPrice, images, description, types } = product;
+        if (!_id || !name || !price || !orgPrice || !images || !description || !(types === null || types === void 0 ? void 0 : types.length))
             return;
         const navigationBar = document.querySelector('.navigation_bar ul');
         navigationBar.insertAdjacentHTML('beforeend', `<li>
@@ -35,6 +35,12 @@ export function generateInfoProduct(container, product) {
                                     <div class="product_details_price">
                                         <del>${formatPrice(orgPrice)}</del>
                                         <span>${formatPrice(price)}</span>
+                                    </div>
+                                    <div class="sizes">
+                                        <span>Sizes:</span>
+                                        <ul>
+                                            ${types.map(type => `<li class="${type.quantity ? '' : 'disabled'}">${type.size}</li>`).join('')}
+                                        </ul>
                                     </div>
                                     <p>${description}</p>
                                     <div class="product_details_quantity">

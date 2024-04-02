@@ -35,7 +35,7 @@ function handleFilterProducts(products?: IProduct[]) {
 }
 
 (async function () {
-    const products: IProduct[] = await getFullData('products');
+    const products: IProduct[] = await getFullData('products/hot');
     const categories: ICategory[] = await getFullData('categories');
     const blogs: IBlog[] = await getFullData('blogs');
 

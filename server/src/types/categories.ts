@@ -8,3 +8,4 @@ export interface ICategory {
 export interface ICategoryParams {
     id?: string;
 }
+

@@ -2,11 +2,13 @@ import express, { NextFunction, Request, Response } from 'express';
 import createHttpError, { isHttpError } from 'http-errors';
 import morgan from 'morgan';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import productRoutes from './routes/product';
 import categoryRoutes from './routes/category';
 import userRoutes from './routes/user';
 import blogRoutes from './routes/blog';
+import authRoutes from './routes/auth';
 
 const app = express();
 
@@ -18,6 +20,7 @@ app.use(cors({
 app.use(express.static('public'));
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
@@ -25,6 +28,7 @@ app.use('/api/shoe/products', productRoutes);
 app.use('/api/shoe/categories', categoryRoutes);
 app.use('/api/shoe/users', userRoutes);
 app.use('/api/shoe/blogs', blogRoutes);
+app.use('/api/shoe/auth', authRoutes);
 
 app.use((req, res, next) => {
     next(createHttpError(404, 'Endpoint not found.'));

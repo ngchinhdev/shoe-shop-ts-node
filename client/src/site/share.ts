@@ -4,10 +4,19 @@ import { generateMenuCategories } from "./markups/categoryMarkup.js";
 
 const barCategory = document.querySelector('.toggle') as HTMLElement;
 const menuCategory = document.querySelector('.list_cate') as HTMLUListElement;
-const searchBox = document.querySelector('.search input') as HTMLElement;
+const searchBox = document.querySelector('.search input') as HTMLInputElement;
 const searchBtn = document.querySelector('.search button') as HTMLElement;
-const likeBtn = document.querySelector('.cart_site li:first-child') as HTMLElement;
 
+function search(): void {
+    if (!searchBox) return;
+
+    if (!searchBox.value) {
+        searchBox.focus();
+        return;
+    }
+
+    window.location.href = `product.html?query=${searchBox.value}`;
+}
 
 (async function () {
     const categories: ICategory[] = await getFullData('categories');
@@ -28,33 +37,11 @@ const likeBtn = document.querySelector('.cart_site li:first-child') as HTMLEleme
             }
         }
     });
+
+    if (searchBox && searchBtn) {
+        searchBox.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') search();
+        });
+        searchBtn.addEventListener('click', search);
+    }
 })();
-
-// Search bar
-// function search(): void {
-//     if (!searchBox) return;
-
-//     if (!searchBox.value) {
-//         searchBox.focus();
-//         return;
-//     }
-
-//     window.location.href = `product.html?query=${searchBox.value}`;
-// }
-
-// if (searchBox && searchBtn) {
-//     searchBox.addEventListener('keyup', (e) => {
-//         if (e.key === 'Enter') search();
-//     });
-//     searchBtn.addEventListener('click', search);
-// }
-
-// async function generatemenuCategorygories(): Promise<void> {
-//     // Function body for generating menu categories
-// }
-
-// // Function body for updateHeader()
-
-// if (paramsUrl.includes('query') && searchBox) {
-//     searchBox.value = paramsUrl.slice(paramsUrl.indexOf('=') + 1);
-// }
