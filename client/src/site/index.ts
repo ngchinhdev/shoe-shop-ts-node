@@ -1,10 +1,11 @@
 import { type ICategory } from "../types/categories.js";
 import { type IProduct } from "../types/products.js";
 import { getFullData } from "../api/apiData.js";
-import { generateHighlightCategories, generateMenuCategories } from "./markups/categoryMarkup.js";
+import { generateHighlightCategories } from "./markups/categoryMarkup.js";
 import { generateProducts } from "./markups/productMarkup.js";
 import { IBlog } from "../types/blogs.js";
 import { generateBlogs } from "./markups/blogMarkup.js";
+import { handleLikeAddCart } from "../utils/productHandler.js";
 
 const hotProductsControl = document.querySelector('.hot_product .list_cate') as HTMLUListElement;
 const hotProductContainer = document.querySelector('.list_prod') as HTMLDivElement;
@@ -43,4 +44,6 @@ function handleFilterProducts(products?: IProduct[]) {
     await generateProducts(hotProductContainer, products.slice(0, 8));
     await generateBlogs(blogContainer, blogs.slice(0, 3));
     handleFilterProducts(products);
+
+    handleLikeAddCart();
 })();

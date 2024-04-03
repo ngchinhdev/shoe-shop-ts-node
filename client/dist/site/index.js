@@ -11,6 +11,7 @@ import { getFullData } from "../api/apiData.js";
 import { generateHighlightCategories } from "./markups/categoryMarkup.js";
 import { generateProducts } from "./markups/productMarkup.js";
 import { generateBlogs } from "./markups/blogMarkup.js";
+import { handleLikeAddCart } from "../utils/productHandler.js";
 const hotProductsControl = document.querySelector('.hot_product .list_cate');
 const hotProductContainer = document.querySelector('.list_prod');
 const highlightCategoryContainer = document.querySelector('.random_cate .container');
@@ -46,5 +47,6 @@ function handleFilterProducts(products) {
         yield generateProducts(hotProductContainer, products.slice(0, 8));
         yield generateBlogs(blogContainer, blogs.slice(0, 3));
         handleFilterProducts(products);
+        handleLikeAddCart();
     });
 })();

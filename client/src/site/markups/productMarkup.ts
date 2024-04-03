@@ -4,6 +4,22 @@ import { IProduct } from "../../types/products.js";
 import { formatPrice } from "../../utils/helpers.js";
 import { loaderDot } from "../../utils/loaders.js";
 
+export function noResult(container: HTMLDivElement, message: string) {
+    container.innerHTML = '';
+    container.insertAdjacentHTML('beforeend', `<div class="empty_prods">${message}</div>`);
+}
+
+export function generatePagination(container: HTMLDivElement, totalPages: number, curPage: number = 0) {
+    let markup = '';
+
+    for (let i = 0; i < totalPages; i++) {
+        markup += `<a href="#" data-page=${i} class=${curPage === i ? 'active' : ''}>${i + 1}</a>`;
+    }
+
+    container.innerHTML = '';
+    container.insertAdjacentHTML('beforeend', markup);
+}
+
 export async function generateProducts(container: HTMLDivElement, filteredProducts: IProduct[]) {
     await loaderDot(container, 500);
 

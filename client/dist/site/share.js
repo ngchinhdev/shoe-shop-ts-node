@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { getFullData } from "../api/apiData.js";
+import updateHeader from "../utils/updateHeader.js";
 import { generateMenuCategories } from "./markups/categoryMarkup.js";
 const barCategory = document.querySelector('.toggle');
 const menuCategory = document.querySelector('.list_cate');
@@ -48,5 +49,6 @@ function search() {
             });
             searchBtn.addEventListener('click', search);
         }
+        updateHeader();
     });
 })();

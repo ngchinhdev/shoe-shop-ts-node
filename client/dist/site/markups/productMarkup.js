@@ -10,6 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { getData } from "../../api/apiData.js";
 import { formatPrice } from "../../utils/helpers.js";
 import { loaderDot } from "../../utils/loaders.js";
+export function noResult(container, message) {
+    container.innerHTML = '';
+    container.insertAdjacentHTML('beforeend', `<div class="empty_prods">${message}</div>`);
+}
+export function generatePagination(container, totalPages, curPage = 0) {
+    let markup = '';
+    for (let i = 0; i < totalPages; i++) {
+        markup += `<a href="#" data-page=${i} class=${curPage === i ? 'active' : ''}>${i + 1}</a>`;
+    }
+    container.innerHTML = '';
+    container.insertAdjacentHTML('beforeend', markup);
+}
 export function generateProducts(container, filteredProducts) {
     return __awaiter(this, void 0, void 0, function* () {
         yield loaderDot(container, 500);

@@ -15,6 +15,16 @@ router.get(
 );
 
 router.get(
+    '/price-range/:min/:max',
+    productController.getProductsPriceRange
+);
+
+router.get(
+    '/discount-range/:min/:max',
+    productController.getProductsDiscountRange
+);
+
+router.get(
     '/categoryId/:id',
     helperMiddlewares.checkValidID,
     productController.getProductsByCategoryId

@@ -1,4 +1,5 @@
 import { getData, getFullData } from "../api/apiData.js";
+import { handleLikeAddCart } from "../utils/productHandler.js";
 import { generateInfoProduct } from "./markups/detailMarkup.js";
 import { generateProducts } from "./markups/productMarkup.js";
 
@@ -28,6 +29,7 @@ const handleControl = () => {
         handleControl();
 
         await generateProducts(relatedProductContainer, relatedProducts.slice(0, 4));
+        handleLikeAddCart();
     } catch (error) {
         relatedProductContainer.innerHTML = '<p class="not-found">Không có sản phẩm nào!</p>';
         console.log(error);

@@ -105,6 +105,7 @@ section.products option {
 section.products .product_pagination {
     margin-top: 10px;
     padding-left: 15px;
+    float: right;
 }
 
 section.products .product_pagination a {

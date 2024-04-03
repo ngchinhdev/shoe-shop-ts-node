@@ -136,6 +136,56 @@ export const getHotProducts: RequestHandler = async (req, res, next) => {
     }
 };
 
+export const getProductsPriceRange: RequestHandler = async (req, res, next) => {
+    const min = req.params.min;
+    const max = req.params.max;
+    console.log(min, max);
+
+    try {
+        const products = await ProductModel.find({
+            price: { $gte: min, $lte: max },
+            isDeleted: false
+        });
+
+        if (products.length === 0) {
+            throw createHttpError(404, 'No products found.');
+        }
+
+        res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getProductsDiscountRange: RequestHandler = async (req, res, next) => {
+    const minDiscount = req.params.min; // 5
+    const maxDiscount = req.params.max; // 10
+
+    try {
+        const products = await ProductModel.find({
+            $expr: {
+                $gte: [
+                    { $divide: [{ $subtract: ["$orgPrice", "$price"] }, "$orgPrice"] },
+                    +minDiscount / 100
+                ],
+                $lte: [
+                    { $divide: [{ $subtract: ["$orgPrice", "$price"] }, "$orgPrice"] },
+                    +maxDiscount / 100
+                ]
+            },
+            isDeleted: false
+        });
+
+        if (products.length === 0) {
+            throw createHttpError(404, 'No products found.');
+        }
+
+        res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const createProduct: RequestHandler<unknown, unknown, IProduct, unknown> = async (req, res, next) => {
     const { name, description, price, orgPrice, hot, color, types, categoryId } = req.body;
     let imagesMulter = req.files as Express.Multer.File[];

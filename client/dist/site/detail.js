@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { getData, getFullData } from "../api/apiData.js";
+import { handleLikeAddCart } from "../utils/productHandler.js";
 import { generateInfoProduct } from "./markups/detailMarkup.js";
 import { generateProducts } from "./markups/productMarkup.js";
 const informationContainer = document.querySelector('.detail_row');
@@ -31,6 +32,7 @@ const handleControl = () => {
             yield generateInfoProduct(informationContainer, product);
             handleControl();
             yield generateProducts(relatedProductContainer, relatedProducts.slice(0, 4));
+            handleLikeAddCart();
         }
         catch (error) {
             relatedProductContainer.innerHTML = '<p class="not-found">Không có sản phẩm nào!</p>';

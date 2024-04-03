@@ -1,8 +1,10 @@
 import { getFullData } from "../api/apiData.js";
 import { IProduct } from "../types/products.js";
-import { generateProducts } from "./markups/productMarkup.js";
+import { handleLikeAddCart, handlePagination } from "../utils/productHandler.js";
+import { generatePagination, generateProducts } from "./markups/productMarkup.js";
 
-const shopProductContainer = document.querySelector('.list_prod') as HTMLDivElement;
+export const shopProductContainer = document.querySelector('.list_prod') as HTMLDivElement;
+const paginationContainer = document.querySelector('.product_pagination') as HTMLDivElement;
 
 (async function () {
     const searchParams = new URLSearchParams(window.location.search);
@@ -30,6 +32,8 @@ const shopProductContainer = document.querySelector('.list_prod') as HTMLDivElem
         }
 
         await generateProducts(shopProductContainer, products.slice(0, 6));
+        handlePagination(paginationContainer, products);
+        handleLikeAddCart();
     } catch (error) {
         console.error(error);
     }

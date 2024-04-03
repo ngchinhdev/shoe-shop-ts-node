@@ -1,5 +1,7 @@
 import { getFullData } from "../api/apiData.js";
 import { type ICategory } from "../types/categories.js";
+import { handleLikeAddCart } from "../utils/productHandler.js";
+import updateHeader from "../utils/updateHeader.js";
 import { generateMenuCategories } from "./markups/categoryMarkup.js";
 
 const barCategory = document.querySelector('.toggle') as HTMLElement;
@@ -44,4 +46,6 @@ function search(): void {
         });
         searchBtn.addEventListener('click', search);
     }
+
+    updateHeader();
 })();
