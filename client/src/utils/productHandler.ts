@@ -1,21 +1,15 @@
 import { getData } from "../api/apiData.js";
 import { generatePagination, generateProducts } from "../site/markups/productMarkup.js";
-import { shopProductContainer } from "../site/shop.js";
 import { IProduct } from "../types/products.js";
+import { getCart, setCart } from "./helpers.js";
 import updateHeader from "./updateHeader.js";
+
+const productContainer = document.querySelector('.list_prod') as HTMLDivElement;
 
 export interface ICartItem {
     id: string;
     quantity: number;
     price: number;
-}
-
-export function setCart(cart: ICartItem[]) {
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-export function getCart() {
-    return JSON.parse(localStorage.getItem('cart')!) || [];
 }
 
 export async function addToCart(curId: string, quantity = 1) {
@@ -90,7 +84,7 @@ export function handlePagination(container: HTMLDivElement, orgProducts: IProduc
         const limit = offset + perPage;
 
         container.innerHTML = '';
-        await generateProducts(shopProductContainer, orgProducts.slice(offset, limit));
+        await generateProducts(productContainer, orgProducts.slice(offset, limit));
         generatePagination(container, totalPages, curPage);
     });
 }

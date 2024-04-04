@@ -1,5 +1,5 @@
-import { formatPrice } from "../utils/helpers.js";
-import { ICartItem, getCart, setCart } from "../utils/productHandler.js";
+import { formatPrice, getCart, setCart } from "../utils/helpers.js";
+import { ICartItem } from "../utils/productHandler.js";
 import updateHeader from "../utils/updateHeader.js";
 import { emptyCart, generateCart } from "./markups/cartMarkup.js";
 

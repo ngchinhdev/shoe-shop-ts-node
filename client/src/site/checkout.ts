@@ -1,3 +1,8 @@
+import { getData } from "../api/apiData.js";
+import { getCart } from "../utils/helpers.js";
+import { ICartItem } from "../utils/productHandler.js";
+import { generateProductToPay } from "./markups/checkoutMarkup.js";
+
 const fullName = document.querySelector(".name") as HTMLInputElement;
 const phoneNum = document.querySelector(".phone_num") as HTMLInputElement;
 const email = document.querySelector("input.email") as HTMLInputElement;
@@ -99,6 +104,39 @@ function checkProvinces(input: HTMLSelectElement) {
     }
     return isEmty;
 }
+
+
+// Show products to pay
+const params = new URLSearchParams(window.location.search);
+const idProd = params.get('id');
+const quantity = params.get('quantity');
+
+const productContainer = document.querySelector('.sum_rows') as HTMLDivElement;
+let productsToPay = [];
+
+(async function getProductsToPay() {
+    if (idProd && quantity) {
+        const product = await getData('products/', idProd);
+
+        productsToPay = [{ ...product, quantityPay: quantity }];
+        await generateProductToPay([{ ...product, quantityPay: quantity }], productContainer);
+    } else {
+        const cartData: ICartItem[] = getCart();
+
+        const promises = cartData.map(async cart => {
+            const product = await getData('products/', cart.id);
+
+            return { ...product, quantityPay: cart.quantity };
+        });
+
+        let productCarts = await Promise.all(promises);
+
+        productsToPay = productCarts;
+        await generateProductToPay(productCarts, productContainer);
+    }
+
+    return productsToPay;
+})();
 
 form.onsubmit = async function (e) {
     e.preventDefault();

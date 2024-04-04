@@ -7,8 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { formatPrice } from "../utils/helpers.js";
-import { getCart, setCart } from "../utils/productHandler.js";
+import { formatPrice, getCart, setCart } from "../utils/helpers.js";
 import updateHeader from "../utils/updateHeader.js";
 import { emptyCart, generateCart } from "./markups/cartMarkup.js";
 const cartWrapper = document.querySelector('.wrapper');

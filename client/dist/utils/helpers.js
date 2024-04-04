@@ -11,3 +11,9 @@ export function formatDate(value) {
 export function removeDiacritics(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
+export function setCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+export function getCart() {
+    return JSON.parse(localStorage.getItem('cart')) || [];
+}

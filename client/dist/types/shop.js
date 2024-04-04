@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { getFullData } from "../api/apiData.js";
 import { handleLikeAddCart, handlePagination } from "../utils/productHandler.js";
-import { generateProducts } from "./markups/productMarkup.js";
+import { generateProducts } from "../site/markups/productMarkup.js";
 export const shopProductContainer = document.querySelector('.list_prod');
 const paginationContainer = document.querySelector('.product_pagination');
 const totalResultLabel = document.querySelector('.total_results');

@@ -136,45 +136,44 @@ export const getHotProducts: RequestHandler = async (req, res, next) => {
     }
 };
 
-export const getProductsPriceRange: RequestHandler = async (req, res, next) => {
-    const min = req.params.min;
-    const max = req.params.max;
-    console.log(min, max);
+export const getProductsByFilter: RequestHandler = async (req, res, next) => {
+    const { sort, bottomDiscount, topDiscount, bottomPrice, topPrice } = req.query;
 
     try {
-        const products = await ProductModel.find({
-            price: { $gte: min, $lte: max },
-            isDeleted: false
-        });
+        let sortOption: any = {};
+        let filterOption: any = {};
 
-        if (products.length === 0) {
-            throw createHttpError(404, 'No products found.');
+        if (sort) {
+            if (sort === 'dec/') {
+                sortOption = { price: -1 };
+            } else if (sort === 'inc/') {
+                sortOption = { price: 1 };
+            } else if (sort === 'all/') {
+                sortOption = {};
+            }
         }
 
-        res.status(200).json(products);
-    } catch (error) {
-        next(error);
-    }
-};
+        if (bottomDiscount && topDiscount) {
+            filterOption = {
+                $expr: {
+                    $and: [
+                        { $gte: [{ $divide: [{ $subtract: ["$orgPrice", "$price"] }, "$orgPrice"] }, +bottomDiscount / 100] },
+                        { $lte: [{ $divide: [{ $subtract: ["$orgPrice", "$price"] }, "$orgPrice"] }, +topDiscount / 100] }
+                    ]
+                }
+            };
+        }
 
-export const getProductsDiscountRange: RequestHandler = async (req, res, next) => {
-    const minDiscount = req.params.min; // 5
-    const maxDiscount = req.params.max; // 10
+        if (bottomPrice && topPrice) {
+            filterOption = {
+                ...filterOption,
+                price: { $gte: bottomPrice, $lte: topPrice }
+            };
+        }
 
-    try {
-        const products = await ProductModel.find({
-            $expr: {
-                $gte: [
-                    { $divide: [{ $subtract: ["$orgPrice", "$price"] }, "$orgPrice"] },
-                    +minDiscount / 100
-                ],
-                $lte: [
-                    { $divide: [{ $subtract: ["$orgPrice", "$price"] }, "$orgPrice"] },
-                    +maxDiscount / 100
-                ]
-            },
-            isDeleted: false
-        });
+        console.log(filterOption, sortOption);
+
+        const products = await ProductModel.find({ ...filterOption, isDeleted: false }).sort(sortOption).exec();
 
         if (products.length === 0) {
             throw createHttpError(404, 'No products found.');

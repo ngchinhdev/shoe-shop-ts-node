@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,6 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { getData } from "../api/apiData.js";
+import { getCart } from "../utils/helpers.js";
+import { generateProductToPay } from "./markups/checkoutMarkup.js";
 const fullName = document.querySelector(".name");
 const phoneNum = document.querySelector(".phone_num");
 const email = document.querySelector("input.email");
@@ -106,6 +108,32 @@ function checkProvinces(input) {
     }
     return isEmty;
 }
+// Show products to pay
+const params = new URLSearchParams(window.location.search);
+const idProd = params.get('id');
+const quantity = params.get('quantity');
+const productContainer = document.querySelector('.sum_rows');
+let productsToPay = [];
+(function getProductsToPay() {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (idProd && quantity) {
+            const product = yield getData('products/', idProd);
+            productsToPay = [Object.assign(Object.assign({}, product), { quantityPay: quantity })];
+            yield generateProductToPay([Object.assign(Object.assign({}, product), { quantityPay: quantity })], productContainer);
+        }
+        else {
+            const cartData = getCart();
+            const promises = cartData.map((cart) => __awaiter(this, void 0, void 0, function* () {
+                const product = yield getData('products/', cart.id);
+                return Object.assign(Object.assign({}, product), { quantityPay: cart.quantity });
+            }));
+            let productCarts = yield Promise.all(promises);
+            productsToPay = productCarts;
+            yield generateProductToPay(productCarts, productContainer);
+        }
+        return productsToPay;
+    });
+})();
 form.onsubmit = function (e) {
     return __awaiter(this, void 0, void 0, function* () {
         e.preventDefault();

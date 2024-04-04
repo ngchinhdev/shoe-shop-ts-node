@@ -1,6 +1,5 @@
 import { getFullData } from "../api/apiData.js";
 import { type ICategory } from "../types/categories.js";
-import { handleLikeAddCart } from "../utils/productHandler.js";
 import updateHeader from "../utils/updateHeader.js";
 import { generateMenuCategories } from "./markups/categoryMarkup.js";
 

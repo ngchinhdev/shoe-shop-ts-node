@@ -1,3 +1,5 @@
+import { ICartItem } from "./productHandler";
+
 export function formatPrice(price: number): string {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
 }
@@ -13,4 +15,12 @@ export function formatDate(value: string): string {
 
 export function removeDiacritics(str: string): string {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+export function setCart(cart: ICartItem[]) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+export function getCart() {
+    return JSON.parse(localStorage.getItem('cart')!) || [];
 }

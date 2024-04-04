@@ -14,6 +14,11 @@ export function emptyCart(container: HTMLDivElement) {
 }
 
 export async function generateCart(container: HTMLDivElement, cartData: ICartItem[]) {
+    if (cartData.length === 0) {
+        emptyCart(container);
+        return false;
+    }
+
     const markup = `<section class="cart">
                     <div class="container side_pad">
                         <table class="tb-cart">

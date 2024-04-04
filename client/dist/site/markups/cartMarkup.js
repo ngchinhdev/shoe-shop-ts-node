@@ -21,6 +21,10 @@ export function emptyCart(container) {
 }
 export function generateCart(container, cartData) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (cartData.length === 0) {
+            emptyCart(container);
+            return false;
+        }
         const markup = `<section class="cart">
                     <div class="container side_pad">
                         <table class="tb-cart">

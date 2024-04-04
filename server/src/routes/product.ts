@@ -15,13 +15,8 @@ router.get(
 );
 
 router.get(
-    '/price-range/:min/:max',
-    productController.getProductsPriceRange
-);
-
-router.get(
-    '/discount-range/:min/:max',
-    productController.getProductsDiscountRange
+    '/filter',
+    productController.getProductsByFilter
 );
 
 router.get(

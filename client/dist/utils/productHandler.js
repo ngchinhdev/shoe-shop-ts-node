@@ -9,14 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { getData } from "../api/apiData.js";
 import { generatePagination, generateProducts } from "../site/markups/productMarkup.js";
-import { shopProductContainer } from "../site/shop.js";
+import { getCart, setCart } from "./helpers.js";
 import updateHeader from "./updateHeader.js";
-export function setCart(cart) {
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
-export function getCart() {
-    return JSON.parse(localStorage.getItem('cart')) || [];
-}
+const productContainer = document.querySelector('.list_prod');
 export function addToCart(curId, quantity = 1) {
     return __awaiter(this, void 0, void 0, function* () {
         const { price } = yield getData('products', curId);
@@ -76,7 +71,7 @@ export function handlePagination(container, orgProducts) {
             const offset = curPage * perPage;
             const limit = offset + perPage;
             container.innerHTML = '';
-            yield generateProducts(shopProductContainer, orgProducts.slice(offset, limit));
+            yield generateProducts(productContainer, orgProducts.slice(offset, limit));
             generatePagination(container, totalPages, curPage);
         });
     });
