@@ -335,6 +335,10 @@ main table td .detail-btn {
     background-color: blue;
 }
 
+main table td .change-status {
+    background-color: #fff !important;
+}
+
 main table td .detail-btn {
     width: 60px;
 }

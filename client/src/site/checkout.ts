@@ -1,4 +1,5 @@
-import { getData } from "../api/apiData.js";
+import { getData, postData } from "../api/apiData.js";
+import { IProduct } from "../types/products.js";
 import { getCart } from "../utils/helpers.js";
 import { ICartItem } from "../utils/productHandler.js";
 import { generateProductToPay } from "./markups/checkoutMarkup.js";
@@ -7,7 +8,6 @@ const fullName = document.querySelector(".name") as HTMLInputElement;
 const phoneNum = document.querySelector(".phone_num") as HTMLInputElement;
 const email = document.querySelector("input.email") as HTMLInputElement;
 const address = document.querySelector(".address") as HTMLInputElement;
-const provinces = document.querySelector(".provinces") as HTMLSelectElement;
 const form = document.querySelector("form") as HTMLFormElement;
 
 function isError(input: HTMLInputElement | HTMLSelectElement, message: string) {
@@ -92,19 +92,6 @@ function checkAddress(input: HTMLInputElement) {
     return isEmty;
 }
 
-function checkProvinces(input: HTMLSelectElement) {
-    let isEmty = true;
-    if (input.value === "Tỉnh / Thành phố") {
-        input.classList.add("error");
-        isEmty = false;
-        isError(input, "Vui lòng chọn tỉnh thành!");
-    } else {
-        input.classList.add("success");
-        isSuccess(input);
-    }
-    return isEmty;
-}
-
 
 // Show products to pay
 const params = new URLSearchParams(window.location.search);
@@ -112,7 +99,7 @@ const idProd = params.get('id');
 const quantity = params.get('quantity');
 
 const productContainer = document.querySelector('.sum_rows') as HTMLDivElement;
-let productsToPay = [];
+let productsToPay: (IProduct & { quantityPay: string; })[] = [];
 
 (async function getProductsToPay() {
     if (idProd && quantity) {
@@ -141,11 +128,22 @@ let productsToPay = [];
 form.onsubmit = async function (e) {
     e.preventDefault();
     if (!(checkName(fullName) && checkPhoneNumber(phoneNum) && checkEmail(email) &&
-        checkAddress(address) && checkProvinces(provinces))) {
+        checkAddress(address))) {
         checkName(fullName);
         checkPhoneNumber(phoneNum);
         checkEmail(email);
         checkAddress(address);
-        checkProvinces(provinces);
+    } else {
+        // const cartData: ICartItem[] = getCart();
+        const items = productsToPay.map(product => ({
+            product: product._id,
+            quantity: +product.quantityPay
+        }));
+
+        const formOrder = new FormData(form);
+
+        formOrder.append('items', JSON.stringify(items));
+
+        await postData('orders', formOrder);
     }
 };

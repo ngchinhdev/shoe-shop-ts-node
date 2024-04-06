@@ -7,14 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getData } from "../api/apiData.js";
+import { getData, postData } from "../api/apiData.js";
 import { getCart } from "../utils/helpers.js";
 import { generateProductToPay } from "./markups/checkoutMarkup.js";
 const fullName = document.querySelector(".name");
 const phoneNum = document.querySelector(".phone_num");
 const email = document.querySelector("input.email");
 const address = document.querySelector(".address");
-const provinces = document.querySelector(".provinces");
 const form = document.querySelector("form");
 function isError(input, message) {
     const siblingEl = input.nextElementSibling;
@@ -95,19 +94,6 @@ function checkAddress(input) {
     }
     return isEmty;
 }
-function checkProvinces(input) {
-    let isEmty = true;
-    if (input.value === "Tỉnh / Thành phố") {
-        input.classList.add("error");
-        isEmty = false;
-        isError(input, "Vui lòng chọn tỉnh thành!");
-    }
-    else {
-        input.classList.add("success");
-        isSuccess(input);
-    }
-    return isEmty;
-}
 // Show products to pay
 const params = new URLSearchParams(window.location.search);
 const idProd = params.get('id');
@@ -138,12 +124,21 @@ form.onsubmit = function (e) {
     return __awaiter(this, void 0, void 0, function* () {
         e.preventDefault();
         if (!(checkName(fullName) && checkPhoneNumber(phoneNum) && checkEmail(email) &&
-            checkAddress(address) && checkProvinces(provinces))) {
+            checkAddress(address))) {
             checkName(fullName);
             checkPhoneNumber(phoneNum);
             checkEmail(email);
             checkAddress(address);
-            checkProvinces(provinces);
+        }
+        else {
+            // const cartData: ICartItem[] = getCart();
+            const items = productsToPay.map(product => ({
+                product: product._id,
+                quantity: +product.quantityPay
+            }));
+            const formOrder = new FormData(form);
+            formOrder.append('items', JSON.stringify(items));
+            yield postData('orders', formOrder);
         }
     });
 };

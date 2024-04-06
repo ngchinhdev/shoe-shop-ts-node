@@ -45,7 +45,7 @@ async function handleRenderContent(page: string) {
     }
 
     if (page === 'order') {
-        new OrderSkeleton().generateMainMarkup();
+        new OrderSkeleton().initialize('orders');
     }
 }
 

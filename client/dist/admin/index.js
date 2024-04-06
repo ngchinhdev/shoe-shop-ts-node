@@ -46,7 +46,7 @@ function handleRenderContent(page) {
             new BlogSkeleton().initialize('blogs');
         }
         if (page === 'order') {
-            new OrderSkeleton().generateMainMarkup();
+            new OrderSkeleton().initialize('orders');
         }
     });
 }

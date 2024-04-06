@@ -1,9 +1,11 @@
 import { RequestHandler } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
 
 import { type IUser } from "../types/users";
 import UserModel from "../models/User";
+import { generateCodeForEmail } from "../utils/helpers";
 
 const generateAccessToken = (id: string, isAdmin: boolean) => {
     return jwt.sign(
@@ -137,4 +139,47 @@ export const newAccessToken: RequestHandler<unknown, unknown, { refreshToken: st
     } catch (error) {
         next(error);
     }
+};
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'chinhnguyennn24@gmail.com',
+        pass: 'eulk tkzr mfio durj'
+    }
+});
+
+export const sendEmail: RequestHandler<unknown, unknown, { email: string; }, unknown> = async (req, res, next) => {
+    const { email } = req.body;
+
+    try {
+        if (!email) {
+            return res.status(400).json({ error: "Email is required." });
+        }
+
+        const codeEmail = generateCodeForEmail();
+
+        transporter.sendMail({
+            from: 'chinhnguyennn24@gmail.com',
+            to: email,
+            subject: 'Please use the code to verify your email.',
+            text: 'The code for verification is: ' + codeEmail
+        }, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                res.cookie('codeEmail', codeEmail, {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: "strict",
+                    maxAge: 604800000
+                });
+
+                return res.status(200).json({ message: 'Email sent.', statusCode: 200 });
+            }
+        });
+    }
+    catch (error) {
+        next(error);
+    };
 };

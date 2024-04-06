@@ -30,6 +30,9 @@ export const verifyToken: RequestHandler<unknown, unknown, IUserVerified, unknow
 
         next();
     } catch (error) {
+        if (error instanceof jwt.TokenExpiredError && error.message === 'jwt expired') {
+            return res.status(401).json({ message: 'Token expired.', code: 401 });
+        }
         return res.status(403).json({ message: 'Invalid token.' });
     }
 };

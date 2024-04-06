@@ -127,7 +127,6 @@ formLogin && formLogin.addEventListener('submit', async function (e: SubmitEvent
             dataUser.accessToken,
             { expires: new Date().setTime(new Date().getTime() + 15 * 60 * 1000) }
         );
-
     }
 });
 

@@ -194,3 +194,7 @@ small.error {
 .container_login .button-register>div {
     margin-bottom: 10px !important;
 }
+
+.hide {
+    display: none;
+}

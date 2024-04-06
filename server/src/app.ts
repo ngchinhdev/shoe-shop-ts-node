@@ -8,6 +8,7 @@ import productRoutes from './routes/product';
 import categoryRoutes from './routes/category';
 import userRoutes from './routes/user';
 import blogRoutes from './routes/blog';
+import orderRoutes from './routes/order';
 import authRoutes from './routes/auth';
 
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/shoe/products', productRoutes);
 app.use('/api/shoe/categories', categoryRoutes);
 app.use('/api/shoe/users', userRoutes);
 app.use('/api/shoe/blogs', blogRoutes);
+app.use('/api/shoe/orders', orderRoutes);
 app.use('/api/shoe/auth', authRoutes);
 
 app.use((req, res, next) => {

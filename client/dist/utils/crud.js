@@ -40,6 +40,10 @@ export default class CRUD {
                     const id = btn.dataset.id;
                     yield this.handleUpdate(id);
                 }
+                if (btn.classList.contains('detail-btn')) {
+                    const id = btn.dataset.id;
+                    yield this.handleDetail(id);
+                }
             }));
         });
     }
@@ -53,4 +57,5 @@ export default class CRUD {
         this.container.innerHTML = '';
         this.container.insertAdjacentHTML('beforeend', markup);
     }
+    handleDetail(id) { }
 }

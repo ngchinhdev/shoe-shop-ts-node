@@ -45,6 +45,12 @@ export default abstract class CRUD implements CRUDOperations {
 
                 await this.handleUpdate(id);
             }
+
+            if (btn.classList.contains('detail-btn')) {
+                const id = btn.dataset.id as string;
+
+                await this.handleDetail(id);
+            }
         });
     }
 
@@ -65,4 +71,6 @@ export default abstract class CRUD implements CRUDOperations {
     abstract handleDelete(id: string): Promise<void>;
 
     abstract handleUpdate(id: string): Promise<void>;
+
+    handleDetail(id: string) { }
 }

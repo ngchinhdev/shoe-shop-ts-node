@@ -12,9 +12,9 @@ import { formatPrice } from "../../utils/helpers.js";
 export function emptyCart(container) {
     container.innerHTML = '';
     container.insertAdjacentHTML('beforeend', `<div class="empty_cart">
-                                                <img src="../images/empty-cart.png" />
+                                                <img src="../../public/site/images/empty-cart.png" />
                                                 <p>Chưa có sản phẩm nào trong giỏ hàng.</p>
-                                                <a href="shop.html">
+                                                <a href="../site/product.html">
                                                     <i class="fa fa-caret-left" aria-hidden="true">
                                                 </i>Quay lại mua hàng</a>
                                             </div>`);

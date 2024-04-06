@@ -32,7 +32,6 @@ export async function addToCart(curId: string, quantity = 1) {
         const newItem = {
             id: curId,
             quantity: quantity,
-            price
         };
         cart.push(newItem);
     }
