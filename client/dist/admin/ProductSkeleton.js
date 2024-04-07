@@ -95,8 +95,8 @@ export default class ProductSkeleton extends CRUD {
     generateMainMarkup(productsData) {
         return __awaiter(this, void 0, void 0, function* () {
             const markup = `<div class="nav">
-                    <div class="abovetable">
-                        <div class="ctgname">
+                    <div class="above_table">
+                        <div class="ctg_name">
                             <strong>Sản phẩm</strong>
                         </div>
                     </div>
@@ -133,7 +133,7 @@ export default class ProductSkeleton extends CRUD {
                         (${product.color})
                     </td>
                     <td>
-                        ${(_a = product.images) === null || _a === void 0 ? void 0 : _a.map(img => `<img src="${img}" alt="${product.name}">`).join('')}
+                        ${(_a = product.images) === null || _a === void 0 ? void 0 : _a.slice(0, 2).map(img => `<img src="${img}" alt="${product.name}">`).join('')}
                     </td>
                     <td>
                         ${product.price && formatPrice(product.price)}
@@ -141,7 +141,9 @@ export default class ProductSkeleton extends CRUD {
                         <del>${product.orgPrice && isSelling ? formatPrice(product.orgPrice) : ''}</del>
                     </td>
                     <td>
-                        ${(_b = product.types) === null || _b === void 0 ? void 0 : _b.map(type => `<p>${type.size}/${type.quantity} đôi</p>`).join('')}
+                        <select>
+                            ${(_b = product.types) === null || _b === void 0 ? void 0 : _b.map(type => type.quantity > 0 ? `<option>${type.size}/${type.quantity}</option>` : '').join('')}
+                        </select>
                     </td>
                     <td>
                         ${product.hot ? 'Có' : 'Không'} 

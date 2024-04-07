@@ -10,6 +10,12 @@ section.hero .banner {
     padding-left: 135px;
 }
 
+
+.blog_pic {
+    width: 100%;
+    height: 320px;
+}
+
 section.hero .banner_text span {
     font-size: 14px;
     text-transform: uppercase;
@@ -182,7 +188,7 @@ section.blog .blog_row {
 
 section.blog .blog_pic img {
     width: 100%;
-    aspect-ratio: 1.5/1;
+    height: 100%;
 }
 
 section.blog .blog_text {

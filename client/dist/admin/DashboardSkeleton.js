@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import Chart from '../../node_modules/chart.js/auto/auto.mjs';
 import { formatPrice } from "../utils/helpers.js";
 import { loaderCircle } from "../utils/loaders.js";
-import { getFullData } from '../api/apiData.js';
+import { getData, getFullData } from '../api/apiData.js';
 const randomColorBar = () => {
     return `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
 };
@@ -49,6 +49,21 @@ export default class DashboardSkeleton {
             const users = yield getFullData('users');
             const categories = yield getFullData('categories');
             const blogs = yield getFullData('blogs');
+            const orders = yield getFullData('orders');
+            if (!orders.length) {
+                this.sumPriceOrders = 0;
+            }
+            else {
+                const promises = orders.map((order) => __awaiter(this, void 0, void 0, function* () {
+                    const products = yield Promise.all(order.items.map((item) => __awaiter(this, void 0, void 0, function* () {
+                        const product = yield getData('products', item.product);
+                        return product;
+                    })));
+                    return products;
+                }));
+                const productsPromise = yield Promise.all(promises);
+                this.sumPriceOrders = productsPromise.flat().reduce((acc, cur) => acc + cur.price, 0);
+            }
             this.countProducts = products.length;
             this.countUser = users.length;
             this.categoriesData = categories;
@@ -180,7 +195,7 @@ export default class DashboardSkeleton {
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </div>
                                     <div class="number">
-                                         ${formatPrice(0)}
+                                         ${formatPrice(this.sumPriceOrders)}
                                     </div>
                                     <h3 class="title">
                                         Tổng doanh thu

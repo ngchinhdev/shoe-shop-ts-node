@@ -134,7 +134,6 @@ form.onsubmit = async function (e) {
         checkEmail(email);
         checkAddress(address);
     } else {
-        // const cartData: ICartItem[] = getCart();
         const items = productsToPay.map(product => ({
             product: product._id,
             quantity: +product.quantityPay
@@ -145,5 +144,11 @@ form.onsubmit = async function (e) {
         formOrder.append('items', JSON.stringify(items));
 
         await postData('orders', formOrder);
+
+        alert('Đặt hàng thành công!');
+
+        localStorage.removeItem('cart');
+
+        window.location.href = '../site/product.html';
     }
 };

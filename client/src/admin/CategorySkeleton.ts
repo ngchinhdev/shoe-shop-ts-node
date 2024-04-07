@@ -78,7 +78,7 @@ export default class CategorySkeleton extends CRUD {
     }
 
     async generateMainMarkup(categoriesData: ICategory[]) {
-        const markup = `<div class="nav">
+        const markup = `<div class="nav" style="width: 65% !important;">
                             <div class="above_table">
                                 <div class="ctg_name">
                                     <strong>Danh mục</strong>
@@ -88,7 +88,7 @@ export default class CategorySkeleton extends CRUD {
                                 <span >+ Thêm mới</span>
                             </div>
                         </div>
-                        <table >
+                        <table style="width: 65% !important; margin-left: 0">
                             <tr>
                                 <th>#</th>
                                 <th>Tên danh mục</th>

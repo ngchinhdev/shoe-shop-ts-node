@@ -23,6 +23,23 @@ function search() {
     }
     window.location.href = `product.html?query=${searchBox.value}`;
 }
+function handleLogin() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let isLogin = localStorage.getItem('accessToken');
+        if (!isLogin)
+            localStorage.setItem('accessToken', '');
+        if (isLogin) {
+            const logoutBtn = document.querySelector('.logout');
+            // const loggedUser = await getData();
+            document.querySelector('.login.ic').innerHTML = `<span class="logged">Hi, You</span>`;
+            document.querySelector('.logged').addEventListener('click', () => logoutBtn.classList.toggle('active'));
+            logoutBtn.addEventListener('click', function () {
+                localStorage.setItem('accessToken', '');
+                window.location.href = 'index.html';
+            });
+        }
+    });
+}
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
         const categories = yield getFullData('categories');
@@ -50,5 +67,6 @@ function search() {
             searchBtn.addEventListener('click', search);
         }
         updateHeader();
+        handleLogin();
     });
 })();

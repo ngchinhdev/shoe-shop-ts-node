@@ -6,7 +6,7 @@ import { verifyAdmin } from "../middlewares/verifyAuth";
 
 const router = Router();
 
-router.get('/', verifyAdmin, userControllers.getUsers);
+router.get('/', userControllers.getUsers);
 
 router.get('/:id', userControllers.getUserById);
 

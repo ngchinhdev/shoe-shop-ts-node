@@ -10,9 +10,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { getFullData } from "../api/apiData.js";
 import { generateBlogs } from "./markups/blogMarkup.js";
 const blogContainer = document.querySelector('.blog_row');
+const blogContainerCate = document.querySelector('.nav_cate');
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
         const blogs = yield getFullData('blogs');
         yield generateBlogs(blogContainer, blogs);
+        blogContainerCate.addEventListener('click', function (e) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const btn = e.target;
+                if (!btn.hasAttribute('data-blog'))
+                    return;
+                const cateId = btn.dataset.blog;
+                blogContainerCate.querySelector('.active').classList.remove('active');
+                btn.classList.add('active');
+                if (cateId === 'all') {
+                    generateBlogs(blogContainer, blogs);
+                    return;
+                }
+                const filteredBlogs = yield getFullData('blogs/categoryName/' + cateId);
+                generateBlogs(blogContainer, filteredBlogs);
+            });
+        });
     });
 })();

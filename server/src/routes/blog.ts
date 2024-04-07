@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { createBlog, deleteBlog, getBlog, getBlogs, updateBlog } from "../controllers/blogs";
+import { createBlog, deleteBlog, getBlog, getBlogByCategoryName, getBlogs, updateBlog } from "../controllers/blogs";
 import uploadFiles from "../utils/uploadFiles";
 
 const router = Router();
 
 router.get('/', getBlogs);
+
+router.get('/categoryName/:categoryName', getBlogByCategoryName);
 
 router.get('/:id', getBlog);
 

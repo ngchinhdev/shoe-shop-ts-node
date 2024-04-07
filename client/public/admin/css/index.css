@@ -292,9 +292,9 @@ main table td.b-img {
 main table td img,
 img.avt-img {
     border: 1px solid #333;
-    width: 36px;
-    max-width: 36px;
-    height: 36px;
+    width: 42px;
+    max-width: 42px;
+    height: 42px;
     margin: 2px;
 }
 
@@ -369,9 +369,9 @@ main .sum-order span {
 }
 
 main table td img.ctn {
-    width: 130px;
-    max-width: 130px;
-    height: 90px;
+    width: 150px;
+    max-width: 150px;
+    height: 120px;
 }
 
 .ctn-blog p {

@@ -18,6 +18,10 @@ export default class CRUD {
             this.container = document.querySelector('main');
             yield this.loader();
             this.data = yield getFullData(endpoint);
+            if (!(yield this.data).length) {
+                this.container.innerHTML = '<p>Không có dữ liệu</p>';
+                return;
+            }
             yield this.generateMainMarkup(yield this.data);
             this.addNewBtn = document.querySelector('.add-new span');
             this.table = document.querySelector('table');

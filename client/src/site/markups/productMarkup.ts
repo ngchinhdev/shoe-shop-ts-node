@@ -22,8 +22,9 @@ export function generatePagination(container: HTMLDivElement, totalPages: number
 
 export async function generateProducts(container: HTMLDivElement, filteredProducts: IProduct[]) {
     await loaderDot(container, 500);
-
     let markup = '';
+
+    if (!filteredProducts?.length) return noResult(container, 'Không tìm thấy sản phẩm nào.');
 
     const promiseProducts = filteredProducts.map(async product => {
         const { _id, name, price, orgPrice, description, images, categoryId, hot } = product;
@@ -44,7 +45,6 @@ export async function generateProducts(container: HTMLDivElement, filteredProduc
                         <div class="item_pic">
                             <img src="${images[0]}" alt="${name}">
                             <ul class="item_pic_hover">
-                                <li><a href="#" class="" data-like=${_id}><i class="fa fa-heart"></i></a></li>
                                 <li><a href="detail.html?cate=${categoryId}&id=${_id}"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                 <li><a href="#" data-cart=${_id}><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>

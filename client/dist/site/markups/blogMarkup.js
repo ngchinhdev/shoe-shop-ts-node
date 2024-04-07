@@ -11,8 +11,12 @@ import { formatDate } from "../../utils/helpers.js";
 import { loaderDot } from "../../utils/loaders.js";
 export function generateBlogs(container, blogs) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield loaderDot(container);
+        yield loaderDot(container, 500);
         container.innerHTML = '';
+        if (!(blogs === null || blogs === void 0 ? void 0 : blogs.length)) {
+            container.insertAdjacentHTML('beforeend', `<div class="empty_prods">Không tìm thấy bài viết nào.</div>`);
+            return;
+        }
         container.insertAdjacentHTML('beforeend', blogs.map(blog => `<div class="blog_col">
                    <div class="blog_item">
                        <div class="blog_pic">

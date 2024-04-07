@@ -18,6 +18,11 @@ export default abstract class CRUD implements CRUDOperations {
         await this.loader();
         this.data = await getFullData(endpoint);
 
+        if (!(await this.data).length) {
+            this.container.innerHTML = '<p>Không có dữ liệu</p>';
+            return;
+        }
+
         await this.generateMainMarkup(await this.data);
 
         this.addNewBtn = document.querySelector('.add-new span') as HTMLSpanElement;

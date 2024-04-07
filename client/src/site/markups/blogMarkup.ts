@@ -2,10 +2,15 @@ import { type IBlog } from "../../types/blogs.js";
 import { formatDate } from "../../utils/helpers.js";
 import { loaderDot } from "../../utils/loaders.js";
 
-export async function generateBlogs(container: HTMLElement, blogs: IBlog[]) {
-    await loaderDot(container);
+export async function generateBlogs(container: HTMLDivElement, blogs: IBlog[]) {
+    await loaderDot(container, 500);
 
     container.innerHTML = '';
+
+    if (!blogs?.length) {
+        container.insertAdjacentHTML('beforeend', `<div class="empty_prods">Không tìm thấy bài viết nào.</div>`);
+        return;
+    }
 
     container.insertAdjacentHTML('beforeend', blogs.map(blog =>
         `<div class="blog_col">

@@ -76,7 +76,7 @@ export default class BlogSkeleton extends CRUD {
             const markup = `<div class="nav">
                             <div class="above_table">
                                 <div class="ctg_name">
-                                    <strong>Danh mục</strong>
+                                    <strong>Bài viết</strong>
                                 </div>
                             </div>
                             <div class="add-new">

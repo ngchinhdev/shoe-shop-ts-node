@@ -33,10 +33,10 @@ export const getProducts: RequestHandler = async (req, res, next) => {
             limitNumber = +limit;
         } else if (page && !limit) {
             pageNumber = +page;
-            limitNumber = 10;
+            limitNumber = 100;
         } else {
             pageNumber = 1;
-            limitNumber = 10;
+            limitNumber = 100;
         }
 
         const skip = (pageNumber - 1) * limitNumber;

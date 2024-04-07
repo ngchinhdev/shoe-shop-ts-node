@@ -130,6 +130,7 @@ formLogin && formLogin.addEventListener('submit', function (e) {
         else {
             const dataUser = yield postData('auth/login', new FormData(formLogin));
             Cookies.set('accessToken', dataUser.accessToken, { expires: new Date().setTime(new Date().getTime() + 15 * 60 * 1000) });
+            localStorage.setItem('accessToken', dataUser.accessToken);
         }
     });
 });

@@ -131,7 +131,6 @@ form.onsubmit = function (e) {
             checkAddress(address);
         }
         else {
-            // const cartData: ICartItem[] = getCart();
             const items = productsToPay.map(product => ({
                 product: product._id,
                 quantity: +product.quantityPay
@@ -139,6 +138,9 @@ form.onsubmit = function (e) {
             const formOrder = new FormData(form);
             formOrder.append('items', JSON.stringify(items));
             yield postData('orders', formOrder);
+            alert('Đặt hàng thành công!');
+            localStorage.removeItem('cart');
+            window.location.href = '../site/product.html';
         }
     });
 };

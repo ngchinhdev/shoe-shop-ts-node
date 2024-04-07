@@ -14,9 +14,9 @@ import updateHeader from "./updateHeader.js";
 const productContainer = document.querySelector('.list_prod');
 export function addToCart(curId, quantity = 1) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { price } = yield getData('products', curId);
         const cart = getCart();
         let itemExists = false;
+        const { price } = yield getData('products', curId);
         for (let i = 0; i < cart.length; i++) {
             const item = cart[i];
             if (item.id === curId) {
@@ -29,6 +29,7 @@ export function addToCart(curId, quantity = 1) {
             const newItem = {
                 id: curId,
                 quantity: quantity,
+                price
             };
             cart.push(newItem);
         }
@@ -41,12 +42,6 @@ export function handleLikeAddCart() {
     document.querySelector('.list_prod').addEventListener('click', function (e) {
         return __awaiter(this, void 0, void 0, function* () {
             const btn = e.target;
-            // if (btn.hasAttribute('data-like')) {
-            //     e.preventDefault();
-            //     const curId = btn.dataset.like;
-            //     handleToggleLike(btn);
-            //     await handleClickLike(curId);
-            // }
             if (btn.hasAttribute('data-cart')) {
                 e.preventDefault();
                 const curId = btn.dataset.cart;
@@ -55,9 +50,9 @@ export function handleLikeAddCart() {
         });
     });
 }
-export function handlePagination(container, orgProducts) {
+export function handlePagination(container, products) {
     const perPage = 6;
-    const totalPages = Math.ceil(orgProducts.length / perPage);
+    const totalPages = Math.ceil(products.length / perPage);
     generatePagination(container, totalPages);
     container.addEventListener('click', function (e) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -70,7 +65,7 @@ export function handlePagination(container, orgProducts) {
             const offset = curPage * perPage;
             const limit = offset + perPage;
             container.innerHTML = '';
-            yield generateProducts(productContainer, orgProducts.slice(offset, limit));
+            yield generateProducts(productContainer, products.slice(offset, limit));
             generatePagination(container, totalPages, curPage);
         });
     });

@@ -26,6 +26,8 @@ export function generateProducts(container, filteredProducts) {
     return __awaiter(this, void 0, void 0, function* () {
         yield loaderDot(container, 500);
         let markup = '';
+        if (!(filteredProducts === null || filteredProducts === void 0 ? void 0 : filteredProducts.length))
+            return noResult(container, 'Không tìm thấy sản phẩm nào.');
         const promiseProducts = filteredProducts.map((product) => __awaiter(this, void 0, void 0, function* () {
             const { _id, name, price, orgPrice, description, images, categoryId, hot } = product;
             if (!name || !price || !orgPrice || !description || !(images === null || images === void 0 ? void 0 : images.length) || !categoryId)
@@ -42,7 +44,6 @@ export function generateProducts(container, filteredProducts) {
                         <div class="item_pic">
                             <img src="${images[0]}" alt="${name}">
                             <ul class="item_pic_hover">
-                                <li><a href="#" class="" data-like=${_id}><i class="fa fa-heart"></i></a></li>
                                 <li><a href="detail.html?cate=${categoryId}&id=${_id}"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                 <li><a href="#" data-cart=${_id}><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>

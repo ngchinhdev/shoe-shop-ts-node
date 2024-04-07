@@ -13,10 +13,10 @@ export interface ICartItem {
 }
 
 export async function addToCart(curId: string, quantity = 1) {
-    const { price } = await getData('products', curId);
-
     const cart = getCart();
     let itemExists = false;
+
+    const { price } = await getData('products', curId);
 
     for (let i = 0; i < cart.length; i++) {
         const item = cart[i];
@@ -32,6 +32,7 @@ export async function addToCart(curId: string, quantity = 1) {
         const newItem = {
             id: curId,
             quantity: quantity,
+            price
         };
         cart.push(newItem);
     }
@@ -44,15 +45,6 @@ export function handleLikeAddCart() {
     document.querySelector('.list_prod')!.addEventListener('click', async function (e) {
         const btn = e.target as HTMLElement;
 
-        // if (btn.hasAttribute('data-like')) {
-        //     e.preventDefault();
-
-        //     const curId = btn.dataset.like;
-        //     handleToggleLike(btn);
-
-        //     await handleClickLike(curId);
-        // }
-
         if (btn.hasAttribute('data-cart')) {
             e.preventDefault();
 
@@ -63,9 +55,9 @@ export function handleLikeAddCart() {
     });
 }
 
-export function handlePagination(container: HTMLDivElement, orgProducts: IProduct[]) {
+export function handlePagination(container: HTMLDivElement, products: IProduct[]) {
     const perPage = 6;
-    const totalPages = Math.ceil(orgProducts.length / perPage);
+    const totalPages = Math.ceil(products.length / perPage);
 
     generatePagination(container, totalPages);
 
@@ -83,7 +75,7 @@ export function handlePagination(container: HTMLDivElement, orgProducts: IProduc
         const limit = offset + perPage;
 
         container.innerHTML = '';
-        await generateProducts(productContainer, orgProducts.slice(offset, limit));
+        await generateProducts(productContainer, products.slice(offset, limit));
         generatePagination(container, totalPages, curPage);
     });
 }

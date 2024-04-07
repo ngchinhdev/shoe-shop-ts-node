@@ -106,8 +106,8 @@ export default class ProductSkeleton extends CRUD {
 
     async generateMainMarkup(productsData: IProduct[]) {
         const markup = `<div class="nav">
-                    <div class="abovetable">
-                        <div class="ctgname">
+                    <div class="above_table">
+                        <div class="ctg_name">
                             <strong>Sản phẩm</strong>
                         </div>
                     </div>
@@ -145,7 +145,7 @@ export default class ProductSkeleton extends CRUD {
                         (${product.color})
                     </td>
                     <td>
-                        ${product.images?.map(img => `<img src="${img}" alt="${product.name}">`).join('')}
+                        ${product.images?.slice(0, 2).map(img => `<img src="${img}" alt="${product.name}">`).join('')}
                     </td>
                     <td>
                         ${product.price && formatPrice(product.price)}
@@ -153,7 +153,9 @@ export default class ProductSkeleton extends CRUD {
                         <del>${product.orgPrice && isSelling ? formatPrice(product.orgPrice) : ''}</del>
                     </td>
                     <td>
-                        ${product.types?.map(type => `<p>${type.size}/${type.quantity} đôi</p>`).join('')}
+                        <select>
+                            ${product.types?.map(type => type.quantity! > 0 ? `<option>${type.size}/${type.quantity}</option>` : '').join('')}
+                        </select>
                     </td>
                     <td>
                         ${product.hot ? 'Có' : 'Không'} 

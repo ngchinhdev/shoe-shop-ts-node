@@ -17,6 +17,23 @@ export const getBlogs: RequestHandler = async (req, res, next) => {
     }
 };
 
+export const getBlogByCategoryName: RequestHandler = async (req, res, next) => {
+    const categoryName = req.params.categoryName;
+
+    try {
+        const blogs = await BlogModel.find({ category: categoryName, isDeleted: false });
+
+        if (!blogs.length) {
+            return res.status(404).json({ error: 'No blog found.' });
+        }
+
+        return res.status(200).json(blogs);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getBlog: RequestHandler = async (req, res, next) => {
     const id = req.params.id;
 
