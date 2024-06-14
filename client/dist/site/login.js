@@ -129,8 +129,20 @@ formLogin && formLogin.addEventListener('submit', function (e) {
         }
         else {
             const dataUser = yield postData('auth/login', new FormData(formLogin));
+            if (!dataUser) {
+                alert('Email hoặc mật khẩu không đúng.');
+                return;
+            }
             Cookies.set('accessToken', dataUser.accessToken, { expires: new Date().setTime(new Date().getTime() + 15 * 60 * 1000) });
             localStorage.setItem('accessToken', dataUser.accessToken);
+            alert('Đăng nhập thành công.');
+            if (dataUser.data.isAdmin) {
+                window.location.href = '../admin/admin.html';
+            }
+            else {
+                localStorage.setItem('id', dataUser.data.id);
+                window.location.href = '../site/index.html';
+            }
         }
     });
 });
@@ -158,8 +170,13 @@ formRegister && formRegister.addEventListener('submit', function (e) {
             formPost.append('email', emailValue);
             formPost.append('address', addressValue);
             formPost.append('password', passwordValue);
-            yield postData('auth/register', formPost);
+            const user = yield postData('auth/register', formPost);
+            if (!user) {
+                isError(email, '(*) Email đã được sử dụng.');
+                return;
+            }
             alert('Đăng ký tài khoản thành công.');
+            window.location.href = '../site/login.html';
         }
     });
 });

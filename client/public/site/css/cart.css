@@ -65,6 +65,7 @@ section.cart table .cart_quantity {
 }
 
 section.cart table .pro-qty {
+    user-select: none;
     width: 120px;
     height: 40px;
     display: inline-block;

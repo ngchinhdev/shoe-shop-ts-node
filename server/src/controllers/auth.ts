@@ -35,9 +35,9 @@ export const registerUser: RequestHandler<unknown, unknown, IUser, unknown> = as
             return res.status(400).json({ error: "All fields are required." });
         }
 
-        const existUser = await UserModel.findOne({ email: email });
+        const existUserEmail = await UserModel.findOne({ email: email });
 
-        if (existUser) {
+        if (existUserEmail) {
             return res.status(409).json({ error: "Email is already in use." });
         }
 
@@ -86,7 +86,7 @@ export const loginUser: RequestHandler<unknown, unknown, IUser, unknown> = async
                 id: user._id, isAdmin: user.isAdmin
             },
             process.env.ACCESS_TOKEN_SECRET!,
-            { expiresIn: "15m" }
+            { expiresIn: "30m" }
         );
 
         const refreshToken = jwt.sign(
@@ -106,10 +106,12 @@ export const loginUser: RequestHandler<unknown, unknown, IUser, unknown> = async
 
         return res.status(200).json({
             data: {
+                id: user._id,
                 fullName: user.fullName,
                 email: user.email,
                 phone: user.phone,
                 address: user.address,
+                isAdmin: user.isAdmin
             },
             accessToken,
         });
@@ -149,6 +151,10 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+let receiveEmail = '';
+
+let codeEmail = '';
+
 export const sendEmail: RequestHandler<unknown, unknown, { email: string; }, unknown> = async (req, res, next) => {
     const { email } = req.body;
 
@@ -157,23 +163,25 @@ export const sendEmail: RequestHandler<unknown, unknown, { email: string; }, unk
             return res.status(400).json({ error: "Email is required." });
         }
 
-        const codeEmail = generateCodeForEmail();
+        const user = await UserModel.findOne({ email: email });
+
+        if (!user) {
+            return res.status(401).json({ error: "Email not found." });
+        }
+
+        receiveEmail = email;
+        const codeEmailRandom = generateCodeForEmail();
 
         transporter.sendMail({
             from: 'chinhnguyennn24@gmail.com',
             to: email,
             subject: 'Please use the code to verify your email.',
-            text: 'The code for verification is: ' + codeEmail
+            text: 'The code for verification is: ' + codeEmailRandom
         }, function (error, info) {
             if (error) {
                 console.log(error);
             } else {
-                res.cookie('codeEmail', codeEmail, {
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: "strict",
-                    maxAge: 604800000
-                });
+                codeEmail = codeEmailRandom;
 
                 return res.status(200).json({ message: 'Email sent.', statusCode: 200 });
             }
@@ -182,4 +190,43 @@ export const sendEmail: RequestHandler<unknown, unknown, { email: string; }, unk
     catch (error) {
         next(error);
     };
+};
+
+export const confirmEmailCode: RequestHandler<unknown, unknown, { code: string; }, unknown> = async (req, res, next) => {
+    const { code } = req.body;
+
+    try {
+        if (!code) {
+            return res.status(400).json({ error: "Code is required." });
+        }
+
+        if (code !== codeEmail) {
+            return res.status(401).json({ error: "Invalid code." });
+        }
+
+        const user = await UserModel.findOne({ email: receiveEmail });
+
+        return res.status(200).json({ id: user?.id, message: 'Email confirmed.', statusCode: 200 });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const updatePassword: RequestHandler<unknown, unknown, { id: string; password: string; }, unknown> = async (req, res, next) => {
+    const { id, password } = req.body;
+
+    try {
+        if (!id || !password) {
+            return res.status(400).json({ error: "All fields are required." });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        await UserModel.findByIdAndUpdate(id, { password: hashedPassword });
+
+        return res.status(200).json({ message: 'Password updated.', statusCode: 200 });
+    } catch (error) {
+        next(error);
+    }
 };

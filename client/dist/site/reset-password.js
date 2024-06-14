@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { postData } from "../api/apiData.js";
 const email = document.querySelector("input[name=email]");
 const formEmail = document.querySelector("form.form-email");
+const formCode = document.querySelector("form.form-code");
+const formNewPass = document.querySelector("form.form-newpass");
 function isError(input, message) {
     const siblingEl = input.nextElementSibling;
     input.classList.add("error");
@@ -59,14 +61,68 @@ formEmail && formEmail.addEventListener('submit', function (e) {
         }
         else {
             const dataUser = yield postData('auth/sendmail', new FormData(formEmail));
+            if (!dataUser) {
+                checkEmail(email, true);
+                return;
+            }
             if (dataUser.statusCode === 200) {
                 alert('Vui lòng kiểm tra email để đặt lại mật khẩu!');
                 formEmail.classList.add('hide');
                 (_a = document.querySelector('.form-code')) === null || _a === void 0 ? void 0 : _a.classList.remove('hide');
             }
-            else {
-                checkEmail(email, true);
+        }
+    });
+});
+let idUser = '';
+formCode && formCode.addEventListener('submit', function (e) {
+    return __awaiter(this, void 0, void 0, function* () {
+        e.preventDefault();
+        const code = document.querySelector("input[name=code]");
+        if (code.value.trim() === '') {
+            isError(code, '(*) Vui lòng nhập mã!');
+        }
+        else {
+            const dataUser = yield postData('auth/confirmEmailCode', new FormData(formCode));
+            if (!dataUser) {
+                isError(code, '(*) Mã không đúng. Vui lòng kiểm tra lại!');
+                return;
             }
+            if (dataUser.statusCode === 200) {
+                idUser = dataUser.id;
+                alert('Xác nhận email thành công!');
+                formCode.classList.add('hide');
+                formNewPass.classList.remove('hide');
+            }
+            else {
+                isError(code, '(*) Mã không đúng. Vui lòng kiểm tra lại!');
+            }
+        }
+    });
+});
+formNewPass && formNewPass.addEventListener('submit', function (e) {
+    return __awaiter(this, void 0, void 0, function* () {
+        e.preventDefault();
+        const password = document.querySelector("input[name=newpassword]");
+        if (password.value.trim() === '') {
+            isError(password, '(*) Vui lòng nhập mật khẩu!');
+            return;
+        }
+        if (password.value.length < 5) {
+            isError(password, '(*) Vui lòng nhập mật khẩu!');
+            return;
+        }
+        isSuccess(password);
+        const formData = new FormData(formNewPass);
+        formData.append('id', idUser);
+        formData.append('password', password.value);
+        const dataUser = yield postData('auth/update-password', formData);
+        if (!dataUser) {
+            alert('Đổi mật khẩu thất bại!');
+            return;
+        }
+        if (dataUser) {
+            alert('Đổi mật khẩu thành công!');
+            window.location.href = '../site/login.html';
         }
     });
 });

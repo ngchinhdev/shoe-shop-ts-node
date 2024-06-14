@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { getData } from "../../api/apiData.js";
 import { formatPrice } from "../../utils/helpers.js";
 import { loaderDot } from "../../utils/loaders.js";
+import { isAlreadyLiked } from "../../utils/productHandler.js";
 export function noResult(container, message) {
     container.innerHTML = '';
     container.insertAdjacentHTML('beforeend', `<div class="empty_prods">${message}</div>`);
@@ -44,6 +45,7 @@ export function generateProducts(container, filteredProducts) {
                         <div class="item_pic">
                             <img src="${images[0]}" alt="${name}">
                             <ul class="item_pic_hover">
+                                <li><a href="#" class="${isAlreadyLiked(_id) ? 'active' : ''}" data-like=${_id}><i class="fa fa-heart"></i></a></li>
                                 <li><a href="detail.html?cate=${categoryId}&id=${_id}"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                 <li><a href="#" data-cart=${_id}><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>

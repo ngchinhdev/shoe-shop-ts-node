@@ -136,61 +136,12 @@ export const getHotProducts: RequestHandler = async (req, res, next) => {
     }
 };
 
-export const getProductsByFilter: RequestHandler = async (req, res, next) => {
-    const { sort, bottomDiscount, topDiscount, bottomPrice, topPrice } = req.query;
-
-    try {
-        let sortOption: any = {};
-        let filterOption: any = {};
-
-        if (sort) {
-            if (sort === 'dec/') {
-                sortOption = { price: -1 };
-            } else if (sort === 'inc/') {
-                sortOption = { price: 1 };
-            } else if (sort === 'all/') {
-                sortOption = {};
-            }
-        }
-
-        if (bottomDiscount && topDiscount) {
-            filterOption = {
-                $expr: {
-                    $and: [
-                        { $gte: [{ $divide: [{ $subtract: ["$orgPrice", "$price"] }, "$orgPrice"] }, +bottomDiscount / 100] },
-                        { $lte: [{ $divide: [{ $subtract: ["$orgPrice", "$price"] }, "$orgPrice"] }, +topDiscount / 100] }
-                    ]
-                }
-            };
-        }
-
-        if (bottomPrice && topPrice) {
-            filterOption = {
-                ...filterOption,
-                price: { $gte: bottomPrice, $lte: topPrice }
-            };
-        }
-
-        console.log(filterOption, sortOption);
-
-        const products = await ProductModel.find({ ...filterOption, isDeleted: false }).sort(sortOption).exec();
-
-        if (products.length === 0) {
-            throw createHttpError(404, 'No products found.');
-        }
-
-        res.status(200).json(products);
-    } catch (error) {
-        next(error);
-    }
-};
-
 export const createProduct: RequestHandler<unknown, unknown, IProduct, unknown> = async (req, res, next) => {
     const { name, description, price, orgPrice, hot, color, types, categoryId } = req.body;
     let imagesMulter = req.files as Express.Multer.File[];
 
     try {
-        if (!name || !description || !price || !orgPrice || !imagesMulter || !color || !types || !categoryId) {
+        if (!name || !description || !price || !orgPrice || !imagesMulter || !color || !categoryId) {
             throw createHttpError(400, 'Missing required fields.');
         }
 
@@ -203,7 +154,7 @@ export const createProduct: RequestHandler<unknown, unknown, IProduct, unknown> 
 
         const images = imagesMulter.map(img => `${baseUrl}/images/products/${img.originalname}`);
 
-        const product = await ProductModel.create({ name, description, price, orgPrice, images, hot, color, types: typesFormatted, categoryId });
+        const product = await ProductModel.create({ name, description, price, orgPrice, images, hot, color, categoryId });
 
         res.status(201).json(product);
     } catch (error) {

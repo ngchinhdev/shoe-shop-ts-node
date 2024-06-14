@@ -26,10 +26,14 @@ section.hero .banner_text span {
 
 section.hero .banner_text h2 {
     font-size: 46px;
-    color: white;
+    color: white !important;
     line-height: 52px;
     font-weight: 700;
     margin: 10px 0;
+}
+
+section.hero .banner_text small {
+    color: white !important;
 }
 
 section.hero .banner_text p {
@@ -193,6 +197,10 @@ section.blog .blog_pic img {
 
 section.blog .blog_text {
     padding-top: 10px;
+}
+
+section.blog .blog_text h5 a {
+    color: rgb(33, 33, 33);
 }
 
 section.blog .blog_text .cate_blog {

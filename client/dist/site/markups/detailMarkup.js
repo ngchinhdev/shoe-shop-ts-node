@@ -36,12 +36,6 @@ export function generateInfoProduct(container, product) {
                                         <del>${formatPrice(orgPrice)}</del>
                                         <span>${formatPrice(price)}</span>
                                     </div>
-                                    <div class="sizes">
-                                        <span>Sizes:</span>
-                                        <ul>
-                                            ${types.map(type => `<li class="${type.quantity ? '' : 'disabled'}">${type.size}</li>`).join('')}
-                                        </ul>
-                                    </div>
                                     <p>${description}</p>
                                     <div class="product_details_quantity">
                                         <div class="quantity">
@@ -54,11 +48,6 @@ export function generateInfoProduct(container, product) {
                                     </div>
                                     <a href="#" data-cart=${_id} class="primary_btn add_cart">+ GIỎ HÀNG</a>
                                     <a href="checkout.html?id=${_id}&quantity=1" class="primary_btn buy_now">MUA NGAY</a>
-                                    <a href="#" class="heart_icon" data-like=${_id}>
-                                        <span class="icon_heart_alt">
-                                            <i class="fa fa-heart ${''}" aria-hidden="true"></i>
-                                        </span>
-                                    </a>
                                 </div>`;
         container.innerHTML = '';
         container.insertAdjacentHTML('beforeend', informationMarkup);
@@ -66,3 +55,9 @@ export function generateInfoProduct(container, product) {
 }
 ;
 ;
+// <div class="sizes">
+//     <span>Sizes:</span>
+//     <ul>
+//         ${types.map(type => `<li class="${type.quantity ? '' : 'disabled'}">${type.size}</li>`).join('')}
+//     </ul>
+// </div>

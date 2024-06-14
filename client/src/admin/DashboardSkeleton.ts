@@ -6,12 +6,13 @@ import { formatPrice } from "../utils/helpers.js";
 import { loaderCircle } from "../utils/loaders.js";
 import { getData, getFullData } from '../api/apiData.js';
 import { IOrder } from '../types/orders.js';
+import { IBlog } from '../types/blogs.js';
 
 const randomColorBar = () => {
     return `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
 };
 
-const countOccurrences = (categories: ICategory[], products: IProduct[]) => {
+const countProductsCategory = (categories: ICategory[], products: IProduct[]) => {
     const countMap: { [key: string]: number; } = {};
 
     for (const category of categories) {
@@ -23,6 +24,22 @@ const countOccurrences = (categories: ICategory[], products: IProduct[]) => {
         }
         if (category.name)
             countMap[category.name] = count;
+    }
+
+    return countMap;
+};
+
+const countBlogsCategory = (blogs: IBlog[]) => {
+    const countMap: { [key: string]: number; } = {};
+
+    for (const blog of blogs) {
+        if (blog.category) {
+            if (countMap[blog.category]) {
+                countMap[blog.category] += 1;
+            } else {
+                countMap[blog.category] = 1;
+            }
+        }
     }
 
     return countMap;
@@ -43,6 +60,7 @@ export default class DashboardSkeleton {
     productsData!: IProduct[];
     categoriesData!: ICategory[];
     chartBarData!: { [key: string]: number; };
+    chartPieData!: { [key: string]: number; };
 
     constructor() {
         this.initialize();
@@ -85,7 +103,8 @@ export default class DashboardSkeleton {
         this.categoriesData = categories;
         this.countBlogs = blogs.length;
 
-        this.chartBarData = countOccurrences(categories, products);
+        this.chartBarData = countProductsCategory(categories, products);
+        this.chartPieData = countBlogsCategory(blogs);
     }
 
     async loader() {
@@ -133,20 +152,14 @@ export default class DashboardSkeleton {
         new Chart(this.ctxPie, {
             type: 'pie',
             data: {
-                labels: [
-                    'Adidas',
-                    'MLB',
-                    'Nike',
-                    'Converse'
-                ],
+                labels: Object.keys(this.chartPieData).map((key) => key),
                 datasets: [{
                     label: 'My First Dataset',
-                    data: [270, 50, 100, 150],
+                    data: Object.values(this.chartPieData).map((value) => value),
                     backgroundColor: [
                         'rgb(255, 99, 132)',
                         'rgb(54, 162, 235)',
                         'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)'
                     ],
                 }]
             },

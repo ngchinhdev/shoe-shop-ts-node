@@ -8,12 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { getData, getFullData } from "../api/apiData.js";
-import { handleLikeAddCart } from "../utils/productHandler.js";
+import { addToCart, handleLikeAddCart } from "../utils/productHandler.js";
 import { generateInfoProduct } from "./markups/detailMarkup.js";
 import { generateProducts } from "./markups/productMarkup.js";
 const informationContainer = document.querySelector('.detail_row');
 const relatedProductContainer = document.querySelector('.list_prod');
-const handleControl = () => {
+let currQuantity = 1;
+function adjustQuantity(btn, idProd) {
+    const inputQuantity = document.querySelector('.ip-qtt');
+    if (btn === 'dec' && currQuantity < 2)
+        return;
+    btn === 'dec' ? --currQuantity : ++currQuantity;
+    inputQuantity.value = `${currQuantity}`;
+    const buyNowBtn = document.querySelector('.buy_now');
+    buyNowBtn.href = `checkout.html?id=${idProd}&quantity=${currQuantity}`;
+}
+const handleControl = (idProd) => {
+    const decBtn = document.querySelector('.pro_qty .dec');
+    const incBtn = document.querySelector('.pro_qty .inc');
+    decBtn.addEventListener('click', () => adjustQuantity('dec', idProd));
+    incBtn.addEventListener('click', () => adjustQuantity('inc', idProd));
     const mainImage = document.querySelector('.main_pic img');
     const smallImages = Array.from(document.querySelectorAll('.pic_col img'));
     smallImages.forEach(img => img.addEventListener('click', function () {
@@ -30,7 +44,17 @@ const handleControl = () => {
             const product = yield getData('products', idProd);
             // Generate details product
             yield generateInfoProduct(informationContainer, product);
-            handleControl();
+            handleControl(idProd);
+            document.querySelector('.add_cart').addEventListener('click', function (e) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    const btn = e.target;
+                    if (btn.hasAttribute('data-cart')) {
+                        e.preventDefault();
+                        const curId = btn.dataset.cart;
+                        yield addToCart(curId, currQuantity);
+                    }
+                });
+            });
             yield generateProducts(relatedProductContainer, relatedProducts.slice(0, 4));
             handleLikeAddCart();
         }

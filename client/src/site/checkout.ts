@@ -141,14 +141,19 @@ form.onsubmit = async function (e) {
 
         const formOrder = new FormData(form);
 
+        const userId = localStorage.getItem('id');
+
         formOrder.append('items', JSON.stringify(items));
 
+        if (userId) {
+            formOrder.append('userId', userId);
+        }
         await postData('orders', formOrder);
 
         alert('Đặt hàng thành công!');
 
         localStorage.removeItem('cart');
 
-        window.location.href = '../site/product.html';
+        window.location.href = '../site/success-payment.html';
     }
 };

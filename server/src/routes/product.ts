@@ -15,11 +15,6 @@ router.get(
 );
 
 router.get(
-    '/filter',
-    productController.getProductsByFilter
-);
-
-router.get(
     '/categoryId/:id',
     helperMiddlewares.checkValidID,
     productController.getProductsByCategoryId

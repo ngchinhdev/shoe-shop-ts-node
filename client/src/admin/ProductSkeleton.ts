@@ -36,7 +36,7 @@ export default class ProductSkeleton extends CRUD {
             const categoryId = form.get('categoryId');
             const images = form.getAll('images') as File[];
 
-            if (!name || !description || !images[0].name || !price || !orgPrice || !hot || !color || !types || !categoryId) {
+            if (!name || !description || !images[0].name || !price || !orgPrice || !hot || !color || !categoryId) {
                 alert('Vui lòng nhập đầy đủ các trường!');
                 return;
             }
@@ -77,7 +77,7 @@ export default class ProductSkeleton extends CRUD {
             const categoryId = form.get('categoryId');
             const images = form.getAll('images') as File[];
 
-            if (!name || !description || !price || !orgPrice || !hot || !color || !types || !categoryId) {
+            if (!name || !description || !price || !orgPrice || !hot || !color || !categoryId) {
                 alert('Vui lòng nhập đầy đủ các trường!');
                 return;
             }
@@ -121,7 +121,6 @@ export default class ProductSkeleton extends CRUD {
                         <th>Tên sản phẩm</th>
                         <th>Hình ảnh</th>
                         <th>Giá</th>
-                        <th>Size/Số lượng</th>
                         <th>Hot</th>
                         <th>Mô tả</th>
                         <th>Thao tác</th>
@@ -151,11 +150,6 @@ export default class ProductSkeleton extends CRUD {
                         ${product.price && formatPrice(product.price)}
                         <br />
                         <del>${product.orgPrice && isSelling ? formatPrice(product.orgPrice) : ''}</del>
-                    </td>
-                    <td>
-                        <select>
-                            ${product.types?.map(type => type.quantity! > 0 ? `<option>${type.size}/${type.quantity}</option>` : '').join('')}
-                        </select>
                     </td>
                     <td>
                         ${product.hot ? 'Có' : 'Không'} 
@@ -199,10 +193,6 @@ export default class ProductSkeleton extends CRUD {
                                 <div class="field">
                                     <label for="color">Màu sắc</label>
                                     <input type="string" id="color" name="color" class="w-100 cm">
-                                </div>
-                                <div class="field">
-                                    <label for="types">Size/Số lượng (Cách nhau bởi dấu phẩy ',')</label>
-                                    <input type="text" id="types" name="types" class="w-100 cm">
                                 </div>
                                 <div class="field">
                                     <label for="hot">Trạng thái HOT</label>
@@ -264,10 +254,6 @@ export default class ProductSkeleton extends CRUD {
                                 <div class="field">
                                     <label for="color">Màu sắc</label>
                                     <input type="string" id="color" name="color" class="w-100 cm"  value="${dataOld.color}">
-                                </div>
-                                <div class="field">
-                                    <label for="types">Size/Số lượng (Cách nhau bởi dấu phẩy ',')</label>
-                                    <input type="text" id="types" name="types" class="w-100 cm"  value="${convertTypes}">
                                 </div>
                                 <div class="field">
                                     <label for="hot">Trạng thái HOT</label>

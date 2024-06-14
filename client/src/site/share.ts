@@ -1,12 +1,14 @@
-import { getData, getFullData } from "../api/apiData.js";
+import { getFullData } from "../api/apiData.js";
 import { type ICategory } from "../types/categories.js";
+import { handleDeleteLiked } from "../utils/productHandler.js";
 import updateHeader from "../utils/updateHeader.js";
 import { generateMenuCategories } from "./markups/categoryMarkup.js";
 
 const barCategory = document.querySelector('.toggle') as HTMLElement;
 const menuCategory = document.querySelector('.list_cate') as HTMLUListElement;
 const searchBox = document.querySelector('.search input') as HTMLInputElement;
-const searchBtn = document.querySelector('.search button') as HTMLElement;
+const searchBtn = document.querySelector('.search button') as HTMLButtonElement;
+const likeSymbol = document.querySelector('.cart_site li:first-child') as HTMLLIElement;
 
 function search(): void {
     if (!searchBox) return;
@@ -20,19 +22,18 @@ function search(): void {
 }
 
 async function handleLogin() {
-    let isLogin = localStorage.getItem('accessToken');
+    let isLogin = localStorage.getItem('id');
 
-    if (!isLogin) localStorage.setItem('accessToken', '');
+    if (!isLogin) localStorage.setItem('id', '');
     if (isLogin) {
         const logoutBtn = document.querySelector('.logout');
-
-        // const loggedUser = await getData();
 
         document.querySelector('.login.ic')!.innerHTML = `<span class="logged">Hi, You</span>`;
         document.querySelector('.logged')!.addEventListener('click', () => logoutBtn!.classList.toggle('active'));
 
         logoutBtn!.addEventListener('click', function () {
             localStorage.setItem('accessToken', '');
+            localStorage.setItem('id', '');
             window.location.href = 'index.html';
         });
     }
@@ -64,6 +65,22 @@ async function handleLogin() {
         });
         searchBtn.addEventListener('click', search);
     }
+
+    likeSymbol.addEventListener('click', function () {
+        document.querySelector('.likes-box')!.classList.toggle('active');
+    });
+
+    document.querySelector('.likes-box')!.addEventListener('click', async function (e) {
+        const delLikedBtn = e.target as HTMLElement;
+
+        e.stopPropagation();
+
+        if (!delLikedBtn.classList.contains('del-like')) return;
+
+        const likedId = delLikedBtn.dataset.del as string;
+
+        await handleDeleteLiked(likedId);
+    });
 
     updateHeader();
     handleLogin();

@@ -14,7 +14,7 @@ import { getData, getFullData } from '../api/apiData.js';
 const randomColorBar = () => {
     return `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
 };
-const countOccurrences = (categories, products) => {
+const countProductsCategory = (categories, products) => {
     const countMap = {};
     for (const category of categories) {
         let count = 0;
@@ -25,6 +25,20 @@ const countOccurrences = (categories, products) => {
         }
         if (category.name)
             countMap[category.name] = count;
+    }
+    return countMap;
+};
+const countBlogsCategory = (blogs) => {
+    const countMap = {};
+    for (const blog of blogs) {
+        if (blog.category) {
+            if (countMap[blog.category]) {
+                countMap[blog.category] += 1;
+            }
+            else {
+                countMap[blog.category] = 1;
+            }
+        }
     }
     return countMap;
 };
@@ -68,7 +82,8 @@ export default class DashboardSkeleton {
             this.countUser = users.length;
             this.categoriesData = categories;
             this.countBlogs = blogs.length;
-            this.chartBarData = countOccurrences(categories, products);
+            this.chartBarData = countProductsCategory(categories, products);
+            this.chartPieData = countBlogsCategory(blogs);
         });
     }
     loader() {
@@ -114,20 +129,14 @@ export default class DashboardSkeleton {
         new Chart(this.ctxPie, {
             type: 'pie',
             data: {
-                labels: [
-                    'Adidas',
-                    'MLB',
-                    'Nike',
-                    'Converse'
-                ],
+                labels: Object.keys(this.chartPieData).map((key) => key),
                 datasets: [{
                         label: 'My First Dataset',
-                        data: [270, 50, 100, 150],
+                        data: Object.values(this.chartPieData).map((value) => value),
                         backgroundColor: [
                             'rgb(255, 99, 132)',
                             'rgb(54, 162, 235)',
                             'rgb(255, 205, 86)',
-                            'rgb(75, 192, 192)'
                         ],
                     }]
             },

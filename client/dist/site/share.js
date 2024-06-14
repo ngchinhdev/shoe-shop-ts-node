@@ -8,12 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { getFullData } from "../api/apiData.js";
+import { handleDeleteLiked } from "../utils/productHandler.js";
 import updateHeader from "../utils/updateHeader.js";
 import { generateMenuCategories } from "./markups/categoryMarkup.js";
 const barCategory = document.querySelector('.toggle');
 const menuCategory = document.querySelector('.list_cate');
 const searchBox = document.querySelector('.search input');
 const searchBtn = document.querySelector('.search button');
+const likeSymbol = document.querySelector('.cart_site li:first-child');
 function search() {
     if (!searchBox)
         return;
@@ -25,16 +27,16 @@ function search() {
 }
 function handleLogin() {
     return __awaiter(this, void 0, void 0, function* () {
-        let isLogin = localStorage.getItem('accessToken');
+        let isLogin = localStorage.getItem('id');
         if (!isLogin)
-            localStorage.setItem('accessToken', '');
+            localStorage.setItem('id', '');
         if (isLogin) {
             const logoutBtn = document.querySelector('.logout');
-            // const loggedUser = await getData();
             document.querySelector('.login.ic').innerHTML = `<span class="logged">Hi, You</span>`;
             document.querySelector('.logged').addEventListener('click', () => logoutBtn.classList.toggle('active'));
             logoutBtn.addEventListener('click', function () {
                 localStorage.setItem('accessToken', '');
+                localStorage.setItem('id', '');
                 window.location.href = 'index.html';
             });
         }
@@ -66,6 +68,19 @@ function handleLogin() {
             });
             searchBtn.addEventListener('click', search);
         }
+        likeSymbol.addEventListener('click', function () {
+            document.querySelector('.likes-box').classList.toggle('active');
+        });
+        document.querySelector('.likes-box').addEventListener('click', function (e) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const delLikedBtn = e.target;
+                e.stopPropagation();
+                if (!delLikedBtn.classList.contains('del-like'))
+                    return;
+                const likedId = delLikedBtn.dataset.del;
+                yield handleDeleteLiked(likedId);
+            });
+        });
         updateHeader();
         handleLogin();
     });

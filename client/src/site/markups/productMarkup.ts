@@ -3,6 +3,7 @@ import { ICategory } from "../../types/categories.js";
 import { IProduct } from "../../types/products.js";
 import { formatPrice } from "../../utils/helpers.js";
 import { loaderDot } from "../../utils/loaders.js";
+import { isAlreadyLiked } from "../../utils/productHandler.js";
 
 export function noResult(container: HTMLDivElement, message: string) {
     container.innerHTML = '';
@@ -45,6 +46,7 @@ export async function generateProducts(container: HTMLDivElement, filteredProduc
                         <div class="item_pic">
                             <img src="${images[0]}" alt="${name}">
                             <ul class="item_pic_hover">
+                                <li><a href="#" class="${isAlreadyLiked(_id!) ? 'active' : ''}" data-like=${_id}><i class="fa fa-heart"></i></a></li>
                                 <li><a href="detail.html?cate=${categoryId}&id=${_id}"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                                 <li><a href="#" data-cart=${_id}><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>

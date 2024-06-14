@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:8080/api/shoe';
+export const BASE_URL = 'http://localhost:5000/api/shoe';
 
 export const getFullData = async (endpoint: string, query?: string) => {
     try {
@@ -17,8 +17,15 @@ export const getFullData = async (endpoint: string, query?: string) => {
 };
 
 export const getData = async (endpoint: string, id: string) => {
+    const accessToken = localStorage.getItem("accessToken");
+
     try {
-        const res = await fetch(`${BASE_URL}/${endpoint}/${id}`);
+        const res = await fetch(`${BASE_URL}/${endpoint}/${id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
+        });
 
         if (!res.ok) throw new Error("Failed to fetch data.");
 

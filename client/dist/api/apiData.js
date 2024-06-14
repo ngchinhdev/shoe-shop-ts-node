@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export const BASE_URL = 'http://localhost:8080/api/shoe';
+export const BASE_URL = 'https://shoe-shop-api.ngchinh.io.vn/api/shoe';
 export const getFullData = (endpoint, query) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const res = yield fetch(`${BASE_URL}/${endpoint}/${query || ''}`);
@@ -23,8 +23,14 @@ export const getFullData = (endpoint, query) => __awaiter(void 0, void 0, void 0
     }
 });
 export const getData = (endpoint, id) => __awaiter(void 0, void 0, void 0, function* () {
+    const accessToken = localStorage.getItem("accessToken");
     try {
-        const res = yield fetch(`${BASE_URL}/${endpoint}/${id}`);
+        const res = yield fetch(`${BASE_URL}/${endpoint}/${id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
+        });
         if (!res.ok)
             throw new Error("Failed to fetch data.");
         const data = yield res.json();
